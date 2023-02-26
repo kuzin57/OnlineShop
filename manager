@@ -62,7 +62,7 @@ def main():
     
     # add pr command (to create pull requests)
     parser.add_argument('-pr', '--pull-request', default=None,
-                        type=str, nargs='?', help='create pull request')
+                        type=str, nargs='?', metavar='branches', help='create pull request')
     
     # parse args
     args = parser.parse_args()
