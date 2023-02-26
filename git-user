@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+import argparse
+import subprocess
+
+def update(args):
+    '''
+    Function updates current branch, committing all changes and pushing them to repository
+    '''
+    args_str = vars(args)['update']
+    list_dir = subprocess.Popen(['git', 'add', '*'])
+    list_dir.wait()
+    list_dir = subprocess.Popen(['git', 'commit', '--m', args_str[0]])
+    list_dir.wait()
+
+def main():
+    '''
+    Main function
+    '''
+    # create a parser object
+    parser = argparse.ArgumentParser(description='project handler')
+
+    # add argument
+    parser.add_argument('-u', '--update', default=None,
+                        type=str, nargs='?', metavar='messages', help='update current changes')
+    
+    # parse args
+    args = parser.parse_args()
+    if args.update != None:
+        update(args)
+
+if __name__ == "__main__":
+    # calling the main function
+    main()
