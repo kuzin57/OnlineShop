@@ -2,16 +2,42 @@
 import argparse
 import subprocess
 
-def update(args):
+def get_current_branch() -> str:
+    '''
+    Function gets name of current branch
+    '''
+    return subprocess.check_output(['git', 'branch', '--show-current']).rstrip()
+
+def add(files = ['*']) -> None:
+    '''
+    Function handles git add operation
+    '''
+    files = ['*']
+    print('zero', files[0])
+    subprocess.Popen(['git', 'add', files[0]]).communicate()
+
+def commit(message: str) -> None:
+    '''
+    Function handles commites
+    '''
+    subprocess.Popen(['git', 'commit', '--m', message]).communicate()
+    
+def push_curent_branch():
+    '''
+    Handles push current branch to repository
+    '''
+    cur_branch = get_current_branch()
+    print('cur_branch', cur_branch)
+    subprocess.Popen(['git', 'push', '-u', 'origin', cur_branch]).communicate()
+
+def update(args) -> None:
     '''
     Function updates current branch, committing all changes and pushing them to repository
     '''
     args_str = vars(args)['update']
-    subprocess.Popen(['git', 'add', '*']).communicate()
-    subprocess.Popen(['git', 'commit', '--m', args_str]).communicate()
-    current_branch = subprocess.check_output(['git', 'branch', '--show-current'])
-    print('current', str(current_branch.rstrip()))
-    output, err = subprocess.Popen(['git', 'push', '-u', 'origin', current_branch.rstrip()]).communicate()
+    add(args_str)
+    commit(args_str)
+    push_curent_branch()
 
 def main():
     '''
