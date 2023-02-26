@@ -12,6 +12,8 @@ def update(args):
     output, err = subprocess.Popen(['git', 'push']).communicate()
     if output:
         print(output)
+    else:
+        print(err)
 
 def main():
     '''
