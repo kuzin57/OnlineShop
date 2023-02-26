@@ -9,11 +9,8 @@ def update(args):
     args_str = vars(args)['update']
     subprocess.Popen(['git', 'add', '*']).communicate()
     subprocess.Popen(['git', 'commit', '--m', args_str]).communicate()
-    output, err = subprocess.Popen(['git', 'push']).communicate()
-    if output:
-        print(output)
-    else:
-        print(output, err)
+    current_branch, err = subprocess.Popen(['git', 'branch', '--show-current']).communicate()
+    output, err = subprocess.Popen(['git', 'push', '-u', 'origin', current_branch]).communicate()
 
 def main():
     '''
