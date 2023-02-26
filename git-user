@@ -13,7 +13,7 @@ def update(args):
     if output:
         print(output)
     else:
-        print(err)
+        print(output, err)
 
 def main():
     '''
