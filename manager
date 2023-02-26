@@ -12,7 +12,6 @@ def add(files: any) -> None:
     '''
     Function handles git add operation
     '''
-    print(files)
     command = ['git', 'add']
     if isinstance(files, list):
         for file in files:
@@ -32,7 +31,6 @@ def push_curent_branch():
     Handles push current branch to repository
     '''
     cur_branch = get_current_branch()
-    print('cur_branch', cur_branch)
     subprocess.Popen(['git', 'push', '-u', 'origin', cur_branch]).communicate()
 
 def update(args) -> None:
@@ -43,6 +41,13 @@ def update(args) -> None:
     add(args_str)
     commit(args_str)
     push_curent_branch()
+    
+def pull_request(args) -> None:
+    '''
+    Function creates new pull request from current branch to another
+    '''
+    names = vars(args)['pull-request']
+    subprocess.Popen(['git', 'request-pull', names[0], names[1], names[2]])
 
 def main():
     '''
@@ -51,9 +56,13 @@ def main():
     # create a parser object
     parser = argparse.ArgumentParser(description='project handler')
 
-    # add argument
+    # add update command (add + commit + push)
     parser.add_argument('-u', '--update', default=None,
                         type=str, nargs='?', metavar='messages', help='update current changes')
+    
+    # add pr command (to create pull requests)
+    parser.add_argument('-pr', '--pull-request', default=None,
+                        type=str, nargs='?', help='create pull request')
     
     # parse args
     args = parser.parse_args()
