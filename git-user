@@ -7,10 +7,11 @@ def update(args):
     Function updates current branch, committing all changes and pushing them to repository
     '''
     args_str = vars(args)['update']
-    list_dir = subprocess.Popen(['git', 'add', '*'])
-    list_dir.wait()
-    list_dir = subprocess.Popen(['git', 'commit', '--m', args_str[0]])
-    list_dir.wait()
+    subprocess.Popen(['git', 'add', '*']).communicate()
+    subprocess.Popen(['git', 'commit', '--m', args_str]).communicate()
+    output, err = subprocess.Popen(['git', 'push']).communicate()
+    if output:
+        print(output)
 
 def main():
     '''
