@@ -8,13 +8,18 @@ def get_current_branch() -> str:
     '''
     return subprocess.check_output(['git', 'branch', '--show-current']).rstrip()
 
-def add(files=['*']) -> None:
+def add(files: any) -> None:
     '''
     Function handles git add operation
     '''
-    files = ['*']
-    print('zero', files[0])
-    subprocess.Popen(['git', 'add', files[0]]).communicate()
+    print(files)
+    command = ['git', 'add']
+    if isinstance(files, list):
+        for file in files:
+            command.append(file)
+    else:
+        command.append('*')
+    subprocess.Popen(command).communicate()
 
 def commit(message: str) -> None:
     '''
