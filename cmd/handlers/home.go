@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// This function adds handler function to http router
 func AddHomePageHandler(router *http.ServeMux, conf PagesConfig) {
 	router.HandleFunc(
 		conf.Home.Path,
