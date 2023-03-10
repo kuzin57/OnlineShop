@@ -1,0 +1,6 @@
+home:
+  path: /
+  templates: 
+    - ./ui/html/home.html
+    - ./ui/html/base.html
+    - ./ui/html/footer.html

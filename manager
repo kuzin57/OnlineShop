@@ -1,0 +1,79 @@
+#!/usr/bin/python3
+import argparse
+import subprocess
+
+repo_name = 'https://github.com/kuzin57/OnlineShop'
+
+def get_current_branch() -> str:
+    '''
+    Function gets name of current branch
+    '''
+    return subprocess.check_output(['git', 'branch', '--show-current']).rstrip()
+
+def add(files: any) -> None:
+    '''
+    Function handles git add operation
+    '''
+    command = ['git', 'add']
+    if isinstance(files, list):
+        for file in files:
+            command.append(file)
+    else:
+        command.append('*')
+    subprocess.Popen(command).communicate()
+
+def commit(message: str) -> None:
+    '''
+    Function handles commites
+    '''
+    subprocess.Popen(['git', 'commit', '--m', message]).communicate()
+    
+def push_curent_branch():
+    '''
+    Handles push current branch to repository
+    '''
+    cur_branch = get_current_branch()
+    subprocess.Popen(['git', 'push', '-u', 'origin', cur_branch]).communicate()
+
+def update(args) -> None:
+    '''
+    Function updates current branch, committing all changes and pushing them to repository
+    '''
+    args_str = vars(args)['update']
+    add(args_str)
+    commit(args_str)
+    push_curent_branch()
+    
+def pull_request(args) -> None:
+    '''
+    Function creates new pull request from current branch to another
+    '''
+    branches = vars(args)['pull_request']
+    print('branches', branches)
+    subprocess.Popen(['git', 'request-pull', branches[0], repo_name, branches[1]])
+
+def main():
+    '''
+    Main function
+    '''
+    # create a parser object
+    parser = argparse.ArgumentParser(description='project handler')
+
+    # add update command (add + commit + push)
+    parser.add_argument('-u', '--update', default=None,
+                        type=str, nargs='?', metavar='messages', help='update current changes')
+    
+    # add pr command (to create pull requests)
+    parser.add_argument('-pr', '--pull_request', default=None,
+                        type=str, nargs=2, metavar=['source', 'dest'], help='create pull request')
+    
+    # parse args
+    args = parser.parse_args()
+    if args.update != None:
+        update(args)
+    elif args.pull_request != None:
+        pull_request(args)
+
+if __name__ == "__main__":
+    # calling the main function
+    main()
