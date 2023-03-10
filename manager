@@ -2,6 +2,8 @@
 import argparse
 import subprocess
 
+repo_name = 'https://github.com/kuzin57/OnlineShop'
+
 def get_current_branch() -> str:
     '''
     Function gets name of current branch
@@ -46,8 +48,9 @@ def pull_request(args) -> None:
     '''
     Function creates new pull request from current branch to another
     '''
-    names = vars(args)['pull-request']
-    subprocess.Popen(['git', 'request-pull', names[0], names[1], names[2]])
+    branches = vars(args)['pull_request']
+    print('branches', branches)
+    subprocess.Popen(['git', 'request-pull', branches[0], repo_name, branches[1]])
 
 def main():
     '''
@@ -61,13 +64,15 @@ def main():
                         type=str, nargs='?', metavar='messages', help='update current changes')
     
     # add pr command (to create pull requests)
-    parser.add_argument('-pr', '--pull-request', default=None,
-                        type=str, nargs='?', metavar='branches', help='create pull request')
+    parser.add_argument('-pr', '--pull_request', default=None,
+                        type=str, nargs=2, metavar=['source', 'dest'], help='create pull request')
     
     # parse args
     args = parser.parse_args()
     if args.update != None:
         update(args)
+    elif args.pull_request != None:
+        pull_request(args)
 
 if __name__ == "__main__":
     # calling the main function
