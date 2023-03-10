@@ -14,8 +14,6 @@ func AddHomePageHandler(router *http.ServeMux, conf PagesConfig) {
 	)
 }
 
-type htmlSources []string
-
 func (s htmlSources) homePageHandler(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles(s...)
 	if err != nil || ts == nil {
