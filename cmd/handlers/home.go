@@ -16,6 +16,7 @@ func AddHomePageHandler(router *http.ServeMux, conf PagesConfig) {
 
 func (s htmlSources) homePageHandler(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles(s...)
+
 	if err != nil || ts == nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
