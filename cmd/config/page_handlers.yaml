@@ -4,3 +4,6 @@ home:
     - ./ui/html/home.html
     - ./ui/html/base.html
     - ./ui/html/footer.html
+
+catalogue:
+  path: /catalogue
