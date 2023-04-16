@@ -22,8 +22,7 @@ func (s htmlSources) homePageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", 500)
 	}
 
-	err = ts.Execute(w, nil)
-	if err != nil {
+	if err = ts.Execute(w, nil); err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
 	}
