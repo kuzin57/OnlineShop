@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили и иконку сайта -->
+        <link rel='stylesheet' href='../static/css/main.css'>
+        <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
+        <!-- Подключаем новый шрифт для сайта от Google Fonts -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>bShop</a></h1>
+        </header>
+        <h2>Login</h2>
+
+        <form id="auth_form" method="post">
+            <label for="email">First name:</label><br>
+            <input type="text" id="email" name="email" value="example@example.com"><br>
+            <label for="password">Last name:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit" onclick="auth_submit()" value="Submit">
+        </form>
+        <script src="../static/js/auth_submit.js"></script>
+    </body>
+</html>
