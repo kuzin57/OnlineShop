@@ -1,10 +1,13 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/kuzin57/OnlineShop/cmd/auth"
 )
 
 func AddAuthPageHandler(router *http.ServeMux, conf PagesConfig) {
@@ -17,24 +20,31 @@ func AddAuthPageHandler(router *http.ServeMux, conf PagesConfig) {
 func (s htmlSources) authPageHandler(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles(s...)
 
-	if err != nil || ts == nil {
+	logError := func(err error, w http.ResponseWriter) {
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
+	}
+
+	if err != nil || ts == nil {
+		logError(err, w)
 	}
 
 	if err = ts.Execute(w, nil); err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		logError(err, w)
 	}
 
-	switch r.Method {
-	case "POST":
-		fmt.Println("POST query received!")
-		body := make([]byte, 100)
-		size, _ := r.Body.Read(body)
-		fmt.Println("size", size)
+	user := auth.User{}
+	if r.Method == "POST" {
+		body := make([]byte, 1000)
+		bytes, err := r.Body.Read(body)
+		if err != nil {
+			logError(err, w)
+		}
+
+		body = body[:bytes]
 		fmt.Println("body", string(body))
-	case "GET":
-		fmt.Println(r.Body)
+		if err = json.Unmarshal(body, &user); err != nil {
+			logError(err, w)
+		}
 	}
 }
