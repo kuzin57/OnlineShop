@@ -6,3 +6,12 @@ CREATE TABLE IF NOT EXISTS bshop.Users (
     email VARCHAR(200) NOT NULL,
     password VARCHAR(100) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS bshop.Products (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(200),
+    category VARCHAR(200),
+    price NUMERIC NOT NULL,
+    stock INTEGER,
+    country VARCHAR(100)
+);

@@ -18,6 +18,7 @@ func main() {
 	pagesConfig := handlers.GetHandlersParameters(pathToConf)
 	handlers.AddHomePageHandler(mux, pagesConfig)
 	handlers.AddAuthPageHandler(mux, pagesConfig)
+	handlers.AddRegistrationPageHandler(mux, pagesConfig)
 
 	if err := db.ConnectToDB(); err != nil {
 		log.Fatal(err)

@@ -13,6 +13,10 @@ const (
 	dbConfigFile = "./cmd/config/databases.yaml"
 )
 
+var (
+	Database *sql.DB
+)
+
 func ConnectToDB() error {
 	dbConfig := getDBConfig(dbConfigFile)
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
@@ -20,12 +24,13 @@ func ConnectToDB() error {
 		dbConfig.Connection.Host, dbConfig.Connection.Port, dbConfig.Connection.User,
 		dbConfig.Connection.Password, dbConfig.Connection.DBname)
 
-	conn, err := sql.Open("postgres", psqlInfo)
+	var err error
+	Database, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
 		return err
 	}
 
-	if err := createTables(conn); err != nil {
+	if err = createTables(Database); err != nil {
 		return err
 	}
 	return nil

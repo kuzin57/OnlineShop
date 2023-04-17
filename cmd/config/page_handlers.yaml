@@ -12,3 +12,8 @@ auth:
   path: /auth
   templates:
     - ./ui/html/auth.html
+
+registration:
+  path: /registration
+  templates:
+    - ./ui/html/register.html
