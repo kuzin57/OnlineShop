@@ -16,6 +16,10 @@ type PagesConfig struct {
 		Path      string   `yaml:"path"`
 		Templates []string `yaml:"templates"`
 	} `yaml:"catalogue"`
+	Auth struct {
+		Path      string   `yaml:"path"`
+		Templates []string `yaml:"templates"`
+	}
 }
 
 func GetHandlersParameters(pathToConf string) PagesConfig {

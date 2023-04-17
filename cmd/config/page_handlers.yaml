@@ -7,3 +7,8 @@ home:
 
 catalogue:
   path: /catalogue
+
+auth:
+  path: /auth
+  templates:
+    - ./ui/html/auth.html
