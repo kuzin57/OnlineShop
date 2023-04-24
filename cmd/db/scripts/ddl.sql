@@ -28,7 +28,8 @@ CREATE TABLE bshop.review (
   date DATE NOT NULL,
   mark INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
+  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE,
+  CHECK (mark >= 1 and mark <= 10)
 );
 
 CREATE TABLE bshop.purchase (
