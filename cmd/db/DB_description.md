@@ -70,12 +70,12 @@
 | `old_hashed_password`| Старый хеш пароля               | `VARCHAR(200)` | `NOT NULL`            |
 
 
-**USER_HISTORY** (версионная таблица для продуктов) 
+**PRODUCT_HISTORY** (версионная таблица для продуктов) 
 
 | Название          | Описание                        | Тип данных     | Ограничение           |
 |-------------------| --------------------------------| -------------- |-----------------------|
 | `update_id`       | Идентификатор                   | `INTEGER`      | `PRIMARY KEY`         |
-| `client_id`       | Идентификатор объекта изменения | `INTEGER`      | `FOREIGN KEY NOT NULL`|
+| `product_id`      | Идентификатор объекта изменения | `INTEGER`      | `FOREIGN KEY NOT NULL`|
 | `price`           | Новая цена                      | `INTEGER`      | `NOT NULL`            |
 | `old_price`       | Старая цена                     | `INTEGER`      | `NOT NULL`            |
 | `rating`          | Новый рейтинг                   | `NUMERIC`      | `NOT NULL`            |
