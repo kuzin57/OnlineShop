@@ -36,7 +36,7 @@ CREATE TABLE bshop.review (
 CREATE TABLE bshop.purchase (
   purchase_id INTEGER PRIMARY KEY,
   client_id INTEGER NOT NULL,
-  purchas_eprice INTEGER NOT NULL,
+  purchase_price INTEGER NOT NULL,
   date DATE NOT NULL,
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
