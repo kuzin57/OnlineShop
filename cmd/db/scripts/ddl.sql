@@ -69,7 +69,8 @@ CREATE TABLE IF NOT EXISTS bshop.product (
   brand VARCHAR(50),
   price INTEGER NOT NULL,
   available BOOLEAN NOT NULL,
-  rating NUMERIC NOT NULL
+  rating NUMERIC NOT NULL,
+  CHECK (rating <= 5)
 );
 
 CREATE TABLE IF NOT EXISTS bshop.review (
