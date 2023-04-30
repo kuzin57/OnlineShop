@@ -3,41 +3,20 @@ function auth_submit() {
     const url = "/127.0.0.1:7000/auth"
 
     var inputForm = document.getElementById("auth_form");
-    inputForm.addEventListener("submit", getValues);
-}
+    inputForm.addEventListener("submit", (e)=> {
+        e.preventDefault()
+        
+        const formData = new FormData(inputForm)
 
-function getValues(event) {
-    event.preventDefault();
-    post_email_and_password(this.email.value, this.password.value);
-    // this.http.request(this.server)
-}
-
-function post_email_and_password(email, password) {
-    fetch("/auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        }),
-    }).then(
-        response => {console.log(response.text());document.getElementById("status").innerText = response.status;}
-    ).catch(
-        error => console.error(error)
-    )
-    // document.getElementById("status").innerHTML = JSON.stringify(response.text());
-
-
-
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", "/auth", true);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.send(JSON.stringify({
-    //     email: email,
-    //     password: password
-    // }));
-    // document.getElementById("status").innerHTML = xhr.status;
-    // console.log(xhr.status);
+        fetch("/auth", {
+            method: "POST",
+            body: formData,
+        }).then(
+            response => response.text()
+        ).then(
+            (data) => {console.log(data); document.getElementById("serverMessageBox").innerHTML = data}
+        ).catch(
+            error => console.error(error)
+        )
+    });
 }
