@@ -12,6 +12,7 @@ auth:
   path: /auth
   templates:
     - ./ui/html/auth.html
+    - ./ui/html/footer.html
 
 registration:
   path: /registration
