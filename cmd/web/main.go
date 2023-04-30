@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	db "github.com/kuzin57/OnlineShop/cmd/db"
 	"github.com/kuzin57/OnlineShop/cmd/handlers"
 )
 
@@ -16,6 +17,12 @@ func main() {
 	mux := http.NewServeMux()
 	pagesConfig := handlers.GetHandlersParameters(pathToConf)
 	handlers.AddHomePageHandler(mux, pagesConfig)
+	handlers.AddAuthPageHandler(mux, pagesConfig)
+	handlers.AddRegistrationPageHandler(mux, pagesConfig)
+
+	if err := db.ConnectToDB(); err != nil {
+		log.Fatal(err)
+	}
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

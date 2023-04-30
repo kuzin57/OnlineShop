@@ -16,6 +16,14 @@ type PagesConfig struct {
 		Path      string   `yaml:"path"`
 		Templates []string `yaml:"templates"`
 	} `yaml:"catalogue"`
+	Auth struct {
+		Path      string   `yaml:"path"`
+		Templates []string `yaml:"templates"`
+	} `yaml:"auth"`
+	Registration struct {
+		Path      string   `yaml:"path"`
+		Templates []string `yaml:"templates"`
+	} `yaml:"registration"`
 }
 
 func GetHandlersParameters(pathToConf string) PagesConfig {
@@ -28,6 +36,5 @@ func GetHandlersParameters(pathToConf string) PagesConfig {
 	if err = yaml.Unmarshal(f, &pc); err != nil {
 		log.Fatal(err)
 	}
-
 	return pc
 }

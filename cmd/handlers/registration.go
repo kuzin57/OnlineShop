@@ -1,20 +1,20 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 )
 
-// This function adds handler function to http router
-func AddHomePageHandler(router *http.ServeMux, conf PagesConfig) {
+func AddRegistrationPageHandler(router *http.ServeMux, conf PagesConfig) {
 	router.HandleFunc(
-		conf.Home.Path,
-		htmlSources(conf.Home.Templates).homePageHandler,
+		conf.Registration.Path,
+		htmlSources(conf.Registration.Templates).registrationPageHandler,
 	)
 }
 
-func (s htmlSources) homePageHandler(w http.ResponseWriter, r *http.Request) {
+func (s htmlSources) registrationPageHandler(w http.ResponseWriter, r *http.Request) {
 	ts, err := template.ParseFiles(s...)
 
 	logError := func(err error, w http.ResponseWriter) {
@@ -28,5 +28,10 @@ func (s htmlSources) homePageHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err = ts.Execute(w, nil); err != nil {
 		logError(err, w)
+	}
+
+	// user := auth.User{}
+	if r.Method == "POST" {
+		fmt.Println("POST")
 	}
 }
