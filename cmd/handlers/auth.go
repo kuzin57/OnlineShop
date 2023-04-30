@@ -1,6 +1,7 @@
 package handlers
 
 import (
+<<<<<<< HEAD
 	"encoding/json"
 	"net/http"
 	"strings"
@@ -8,6 +9,13 @@ import (
 	"github.com/kuzin57/OnlineShop/cmd/auth"
 	"github.com/kuzin57/OnlineShop/cmd/db"
 	"github.com/kuzin57/OnlineShop/cmd/services"
+=======
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"time"
+>>>>>>> 8a6f0f3 (auth_submit fix)
 )
 
 type authPageHandler struct {
