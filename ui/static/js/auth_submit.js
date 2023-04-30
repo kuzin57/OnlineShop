@@ -35,26 +35,19 @@ function auth_submit() {
             method: "POST",
             body: JSON.stringify({email: formData.get("email"), password: formData.get("password")}),
         }).then(
-            response => response.text()
+            response => response.json()
         ).then(
-            (data) => {console.log(data);document.getElementById("serverMessageBox").innerHTML=data}
+            (data) => {
+                console.log(data)
+                if (data.status == 403) {
+                    document.getElementById("serverMessageBox").innerHTML="Login failed!"
+                } else {
+                    document.getElementById("serverMessageBox").innerHTML="Login succeeded!"
+                }
+            }
         ).catch(
             error => console.error(error)
         )
-    
-
-        // // (async () => {
-        //     const rawResponse = await fetch('/auth', {
-        //       method: 'POST',
-        //       headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //       },
-        //       body: JSON.stringify({a: 1, b: 'Textual content'})
-        //     });
-        //     const content = await rawResponse.json();
-          
-        //     console.log(content);
-         // })();
+        
     });
 }
