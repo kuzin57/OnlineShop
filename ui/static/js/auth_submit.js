@@ -25,30 +25,20 @@ function setCookie(name, value, options = {}) {
 
 function auth_submit() {
     var inputForm = document.getElementById("auth_form");
-    inputForm.addEventListener("submit", async (e)=> {
+    inputForm.addEventListener("submit", (e)=> {
         e.preventDefault()
         
         const formData = new FormData(inputForm)
-        console.log(formData.get("email"))
 
         fetch("/auth", {
             method: "POST",
-            body: JSON.stringify({email: formData.get("email"), password: formData.get("password")}),
+            body: formData,
         }).then(
-            response => response.json()
+            response => response.text()
         ).then(
-            (data) => {
-                document.getElementById("serverMessageBox").innerHTML=data.description;
-                if (data.status != 403) {
-                    setCookie("username", data.userName);
-                    setCookie("token", data.token);
-                    console.log(document.cookie);
-                    window.location.replace("/");
-                }
-            }
+            (data) => {console.log(data); document.getElementById("serverMessageBox").innerHTML = data}
         ).catch(
             error => console.error(error)
         )
-        
     });
 }
