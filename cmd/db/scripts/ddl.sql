@@ -18,7 +18,7 @@ CREATE TABLE bshop.product (
   price INTEGER NOT NULL,
   available BOOLEAN NOT NULL,
   rating NUMERIC NOT NULL,
-  CHECK (rating <= 5)
+  CHECK (rating <= 10)
 );
 
 CREATE TABLE bshop.review (
