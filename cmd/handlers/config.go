@@ -19,6 +19,7 @@ type PagesConfig struct {
 	Auth struct {
 		Path      string   `yaml:"path"`
 		Templates []string `yaml:"templates"`
+		AuthType  string   `yaml:"auth_type"`
 	} `yaml:"auth"`
 	Registration struct {
 		Path      string   `yaml:"path"`

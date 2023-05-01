@@ -5,19 +5,16 @@ import (
 	"fmt"
 
 	_ "github.com/lib/pq"
-	"github.com/tanimutomo/sqlfile"
 )
 
 const (
-	ddlScripts   = "./cmd/db/scripts/ddl.sql"
-	dbConfigFile = "./cmd/config/databases.yaml"
+	ddlScripts     = "./cmd/db/scripts/ddl.sql"
+	insertsScripts = "./cmd/db/scripts/inserts.sql"
+	viewsScripts   = "./cmd/db/scripts/views.sql"
+	dbConfigFile   = "./cmd/config/databases.yaml"
 )
 
-var (
-	Database *sql.DB
-)
-
-func ConnectToDB() error {
+func ConnectToDB() (*Repository, error) {
 	dbConfig := getDBConfig(dbConfigFile)
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -25,28 +22,23 @@ func ConnectToDB() error {
 		dbConfig.Connection.Password, dbConfig.Connection.DBname)
 
 	var err error
-	Database, err = sql.Open("postgres", psqlInfo)
+	database, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	if err = createTables(Database); err != nil {
-		return err
-	}
-	return nil
-}
-
-func createTables(db *sql.DB) error {
-	s := sqlfile.New()
-
-	if err := s.File(ddlScripts); err != nil {
-		return err
+	repos := NewRepository(database)
+	if err = repos.executeQueriesFromFile(ddlScripts); err != nil {
+		return nil, err
 	}
 
-	_, err := s.Exec(db)
-	if err != nil {
-		return err
+	if err = repos.executeQueriesFromFile(insertsScripts); err != nil {
+		return nil, err
 	}
 
-	return nil
+	// if err = repos.executeQueriesFromFile(viewsScripts); err != nil {
+	// 	return nil, err
+	// }
+
+	return repos, nil
 }

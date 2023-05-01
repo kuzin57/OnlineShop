@@ -1,45 +1,64 @@
 package auth
 
 import (
+	"crypto/sha1"
 	"fmt"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/kuzin57/OnlineShop/cmd/db"
-	"golang.org/x/crypto/bcrypt"
 )
-
-type User struct {
-	Id       uint32 `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
 
 const (
-	checkUserExistenceQuery = "SELECT * FROM bshop.Users WHERE email"
+	salt     = "vndfkjnkvj938958*&^*&*"
+	signKey  = "w87r8fyschcjdh*&^*&^*&hbj"
+	tokenTTL = 12 * time.Hour
 )
 
-func Login(reqUser *User) error {
-	var (
-		id       uint32
-		name     string
-		email    string
-		password string
-	)
+type AuthService struct {
+	auth *db.AuthPostgres
+}
 
-	checkingQuery := fmt.Sprintf(
-		"%s = %s",
-		checkUserExistenceQuery,
-		reqUser.Email)
-	row := db.Database.QueryRow(checkingQuery)
+type tokenClaims struct {
+	jwt.StandardClaims
+	UserID uint32 `json:"user_id"`
+}
 
-	if err := row.Scan(&id, &name, &email, &password); err != nil {
-		return errIncorrectEmail
+func NewAuthService(postgres *db.AuthPostgres) *AuthService {
+	return &AuthService{
+		auth: postgres,
+	}
+}
+
+func (s *AuthService) CreateUser(user *db.User) (uint32, error) {
+	user.Password = generateHashedPassword(user.Password)
+	return s.auth.CreateUser(user)
+}
+
+func (s *AuthService) GenerateToken(email, password string) (string, error) {
+	user, err := s.auth.GetUser(email, generateHashedPassword(password))
+	if err != nil {
+		return "", err
 	}
 
-	if err := bcrypt.CompareHashAndPassword(
-		[]byte(password),
-		[]byte(reqUser.Password)); err != nil {
-		return errInvalidPassword
-	}
-	return nil
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(tokenTTL).Unix(),
+			IssuedAt:  time.Now().Unix(),
+		},
+		UserID: user.Id,
+	})
+
+	return token.SignedString([]byte(signKey))
+}
+
+func (s *AuthService) ParseToken(token string) (int, error) {
+	return 0, nil
+}
+
+func generateHashedPassword(password string) string {
+	hashFunc := sha1.New()
+	hashFunc.Write([]byte(password))
+
+	return fmt.Sprintf("%x", hashFunc.Sum([]byte(salt)))
 }
