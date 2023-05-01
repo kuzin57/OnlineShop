@@ -4,6 +4,7 @@ import (
 <<<<<<< HEAD
 <<<<<<< HEAD
 	"encoding/json"
+<<<<<<< HEAD
 	"net/http"
 	"strings"
 
@@ -15,8 +16,9 @@ import (
 	"encoding/json"
 >>>>>>> 355ec40 (fix test + fix communication between front and back)
 	"fmt"
+=======
+>>>>>>> 35fe851 (made some changes)
 	"html/template"
-	"log"
 	"net/http"
 <<<<<<< HEAD
 	"time"
@@ -24,7 +26,12 @@ import (
 =======
 
 	"github.com/kuzin57/OnlineShop/cmd/auth"
+<<<<<<< HEAD
 >>>>>>> 355ec40 (fix test + fix communication between front and back)
+=======
+	"github.com/kuzin57/OnlineShop/cmd/db"
+	"github.com/kuzin57/OnlineShop/cmd/services"
+>>>>>>> 35fe851 (made some changes)
 )
 
 type authPageHandler struct {
@@ -41,6 +48,7 @@ func AddAuthPageHandler(
 	handler := &authPageHandler{
 		htmlSources: conf.Auth.Templates,
 		path:        conf.Auth.Path,
+<<<<<<< HEAD
 	}
 
 	router.HandleFunc(
@@ -97,11 +105,29 @@ func (s htmlSources) authPageHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("error")
 		log.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
+=======
+>>>>>>> 35fe851 (made some changes)
 	}
 
+	router.HandleFunc(
+		conf.Auth.Path,
+		handler.Handle,
+	)
+
+	switch conf.Auth.AuthType {
+	case "postgres":
+		handler.authService = auth.NewAuthService(postgres)
+	default:
+		panic("Unknown AuthType")
+	}
+
+	return handler
+}
+
+func (h *authPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		ts, err := template.ParseFiles(s...)
+		ts, err := template.ParseFiles(h.htmlSources...)
 
 		if err != nil || ts == nil {
 			logError(err, w)
@@ -112,26 +138,29 @@ func (s htmlSources) authPageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 	case http.MethodPost:
-		user := auth.User{}
+		user := db.User{}
 		body := make([]byte, 1000)
 		bytes, _ := r.Body.Read(body)
-
 		body = body[:bytes]
-		fmt.Println("body:", string(body))
 
-		w.Header().Set("Content-Type", "text")
-		response := Response{Status: http.StatusAccepted, Description: "Success!"}
-		if err := auth.Login(&user); err != nil {
+		response := Response{}
+
+		if err := json.Unmarshal(body, &user); err != nil {
+			response.Status = http.StatusBadRequest
+			response.Description = err.Error()
+			sendResponse(w, response)
+			return
+		}
+
+		token, err := h.authService.GenerateToken(user.Email, user.Password)
+		if err != nil {
 			response.Status = http.StatusForbidden
 			response.Description = err.Error()
+			sendResponse(w, response)
+			return
 		}
 
-		js, err := json.Marshal(&response)
-		if err != nil {
-			logError(err, w)
-		}
-
-		fmt.Println("response", string(js))
-		w.Write([]byte(js))
+		response.Token = token
+		sendResponse(w, response)
 	}
 }

@@ -1,8 +1,12 @@
 package db
 
 const (
+<<<<<<< HEAD
 	usersTable    = "bshop.user"
 	productsTable = "bshop.product"
+=======
+	usersTable = "bshop.user"
+>>>>>>> 35fe851 (made some changes)
 )
 
 type User struct {
@@ -14,6 +18,7 @@ type User struct {
 	Birthday    string `json:"birthday"`
 	Password    string `json:"password"`
 }
+<<<<<<< HEAD
 
 type Product struct {
 	Id           uint32  `json:"id"`
@@ -37,3 +42,5 @@ func NewProduct(category string, name string, brand string,
 		Rating:    rating,
 	}
 }
+=======
+>>>>>>> 35fe851 (made some changes)

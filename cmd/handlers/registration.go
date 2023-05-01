@@ -10,10 +10,13 @@ import (
 	"github.com/kuzin57/OnlineShop/cmd/services"
 )
 
+<<<<<<< HEAD
 const (
 	successRegistration = "Successful registration!"
 )
 
+=======
+>>>>>>> 35fe851 (made some changes)
 type registrationHandler struct {
 	path          string
 	htmlTemplates []string
@@ -61,6 +64,7 @@ func (h *registrationHandler) Handle(w http.ResponseWriter, r *http.Request) {
 			logError(err, w)
 		}
 
+<<<<<<< HEAD
 		w.Header().Set("Content-Type", "application/json")
 		response := Response{}
 
@@ -76,5 +80,21 @@ func (h *registrationHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		response.Description = successRegistration
 
 		sendResponse(w, response)
+=======
+		_, err := h.authService.CreateUser(&user)
+		if err != nil {
+			logError(err, w)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		response := Response{Status: http.StatusAccepted, Description: "Registration succeeded!"}
+
+		js, err := json.Marshal(&response)
+		if err != nil {
+			logError(err, w)
+		}
+
+		w.Write([]byte(js))
+>>>>>>> 35fe851 (made some changes)
 	}
 }
