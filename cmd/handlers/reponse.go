@@ -3,12 +3,16 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/kuzin57/OnlineShop/cmd/db"
 )
 
 type Response struct {
-	Status      int    `json:"status"`
-	Description string `json:"description"`
-	Token       string `json:"token"`
+	Status      int          `json:"status"`
+	Description string       `json:"description"`
+	Token       string       `json:"token"`
+	UserName    string       `json:"userName"`
+	Products    []db.Product `json:"products"`
 }
 
 func sendResponse(w http.ResponseWriter, response Response) {

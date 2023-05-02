@@ -12,11 +12,12 @@ import (
 const (
 	salt     = "vndfkjnkvj938958*&^*&*"
 	signKey  = "w87r8fyschcjdh*&^*&^*&hbj"
-	tokenTTL = 12 * time.Hour
+	tokenTTL = time.Second * 30
 )
 
 type AuthService struct {
-	auth *db.AuthPostgres
+	auth         *db.AuthPostgres
+	serviceEmail *ServiceEmail
 }
 
 type tokenClaims struct {
@@ -26,11 +27,16 @@ type tokenClaims struct {
 
 func NewAuthService(postgres *db.AuthPostgres) *AuthService {
 	return &AuthService{
-		auth: postgres,
+		auth:         postgres,
+		serviceEmail: InitServiceEmail(),
 	}
 }
 
 func (s *AuthService) CreateUser(user *db.User) (uint32, error) {
+	if err := s.auth.CheckEmailUnique(user.Email); err != nil {
+		return 0, err
+	}
+
 	user.Password = generateHashedPassword(user.Password)
 	return s.auth.CreateUser(user)
 }
@@ -52,8 +58,29 @@ func (s *AuthService) GenerateToken(email, password string) (string, error) {
 	return token.SignedString([]byte(signKey))
 }
 
-func (s *AuthService) ParseToken(token string) (int, error) {
-	return 0, nil
+func (s *AuthService) ParseToken(accessToken string) (uint32, error) {
+	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (any, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errInvalidSigningMethod
+		}
+
+		return []byte(signKey), nil
+	})
+
+	if err != nil {
+		return 0, err
+	}
+
+	claims, ok := token.Claims.(*tokenClaims)
+	if !ok {
+		return 0, errInvalidClaims
+	}
+
+	return claims.UserID, nil
+}
+
+func (s *AuthService) RecoverPassword(email string) error {
+	return nil
 }
 
 func generateHashedPassword(password string) string {

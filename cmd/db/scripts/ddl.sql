@@ -238,10 +238,6 @@ CREATE TABLE IF NOT EXISTS bshop.user_history (
   FOREIGN KEY (user_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-<<<<<<< HEAD
-SELECT name, brand, category, rating,
-							price, available FROM bshop.product;
-=======
 CREATE TABLE IF NOT EXISTS bshop.product_history (
   update_id SERIAL UNIQUE,
   product_id INTEGER NOT NULL,
@@ -251,4 +247,3 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
   old_rating NUMERIC,
   FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
 );
->>>>>>> d7863cd (made some changes)

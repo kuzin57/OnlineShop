@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/tanimutomo/sqlfile"
 )
@@ -40,4 +41,37 @@ func (r *Repository) CheckDataBaseAvailable() error {
 
 func (r *Repository) MakeQueryRow(query string, args ...any) *sql.Row {
 	return r.db.QueryRow(query, args...)
+}
+
+func (r *Repository) GetProducts() ([]Product, error) {
+	query := fmt.Sprintf(`SELECT name, brand, category, rating,
+							price, available FROM %s;`, productsTable)
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		name      string
+		brand     string
+		category  string
+		price     uint32
+		rating    float64
+		available bool
+		products  []Product
+	)
+
+	for rows.Next() {
+		rows.Scan(&name, &brand, &category, &rating,
+			&price, &available)
+		products = append(
+			products,
+			NewProduct(
+				category, name, brand, price,
+				available, rating,
+			),
+		)
+	}
+
+	return products, nil
 }

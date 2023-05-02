@@ -1,7 +1,8 @@
 package db
 
 const (
-	usersTable = "bshop.user"
+	usersTable    = "bshop.user"
+	productsTable = "bshop.product"
 )
 
 type User struct {
@@ -12,4 +13,27 @@ type User struct {
 	PhoneNumber string `json:"phone"`
 	Birthday    string `json:"birthday"`
 	Password    string `json:"password"`
+}
+
+type Product struct {
+	Id           uint32  `json:"id"`
+	Category     string  `json:"category"`
+	Name         string  `json:"name"`
+	Brand        string  `json:"brand"`
+	Price        uint32  `json:"price"`
+	Available    bool    `json:"available"`
+	Rating       float64 `json:"rating"`
+	RatingAmount uint64  `json:"rating_amount"`
+}
+
+func NewProduct(category string, name string, brand string,
+	price uint32, available bool, rating float64) Product {
+	return Product{
+		Category:  category,
+		Name:      name,
+		Brand:     brand,
+		Price:     price,
+		Available: available,
+		Rating:    rating,
+	}
 }

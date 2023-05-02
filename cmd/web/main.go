@@ -29,15 +29,7 @@ func main() {
 	pageHandlers = append(pageHandlers, handlers.AddHomePageHandler(mux, pagesConfig))
 	pageHandlers = append(pageHandlers, handlers.AddAuthPageHandler(mux, pagesConfig, postgres))
 	pageHandlers = append(pageHandlers, handlers.AddRegistrationPageHandler(mux, pagesConfig, postgres))
-
-	// handlers.AddHomePageHandler(mux, pagesConfig)
-	// handlers.AddAuthPageHandler(mux, pagesConfig)
-	// handlers.AddRegistrationPageHandler(mux, pagesConfig)
-
-	// repository, err := db.ConnectToDB()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	pageHandlers = append(pageHandlers, handlers.AddCatalogueHandler(mux, pagesConfig, repo))
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

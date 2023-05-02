@@ -7,6 +7,9 @@ home:
 
 catalogue:
   path: /catalogue
+  templates:
+    - /home/kuzin57/OnlineShop/ui/html/catalogue.html
+    - /home/kuzin57/OnlineShop/ui/html/footer.html
 
 auth:
   path: /auth
@@ -19,3 +22,8 @@ registration:
   path: /registration
   templates:
     - /home/kuzin57/OnlineShop/ui/html/register.html
+  
+password_recovery:
+  path: /pswrd_recovery
+  templates:
+    - /home/kuzin57/OnlineShop/ui/html/recovery_page.html

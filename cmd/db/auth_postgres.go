@@ -14,6 +14,16 @@ func NewAuthPostgresService(repo *Repository) *AuthPostgres {
 	}
 }
 
+func (a *AuthPostgres) CheckEmailUnique(email string) error {
+	query := fmt.Sprintf(`SELECT * FROM bshop.user WHERE email='%s';`, email)
+	row := a.repo.MakeQueryRow(query)
+	if row.Err() != nil {
+		return errEmailExists
+	}
+
+	return nil
+}
+
 func (a *AuthPostgres) CreateUser(user *User) (uint32, error) {
 	if err := a.repo.CheckDataBaseAvailable(); err != nil {
 		return 0, err
@@ -35,7 +45,7 @@ func (a *AuthPostgres) CreateUser(user *User) (uint32, error) {
 }
 
 func (a *AuthPostgres) GetUser(email string, password string) (*User, error) {
-	query := fmt.Sprintf(`SELECT * FROM bshop.user WHERE email=%s;`, email)
+	query := fmt.Sprintf(`SELECT * FROM bshop.user WHERE email='%s';`, email)
 	row := a.repo.MakeQueryRow(query)
 	if row == nil {
 		return nil, errNoSuchUser
