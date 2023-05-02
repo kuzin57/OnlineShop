@@ -187,7 +187,7 @@ CREATE TABLE bshop.user_history (
   FOREIGN KEY (user_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE bshop.product (
+CREATE TABLE IF NOT EXISTS bshop.product (
   product_id INTEGER PRIMARY KEY,
   category VARCHAR(100) NOT NULL,
   name VARCHAR(100) NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE bshop.product (
   rating NUMERIC NOT NULL
 );
 
-CREATE TABLE bshop.review (
+CREATE TABLE IF NOT EXISTS bshop.review (
   review_id INTEGER PRIMARY KEY,
   user_id INTEGER NOT NULL,
   comment TEXT,
@@ -209,7 +209,7 @@ CREATE TABLE bshop.review (
   CHECK (mark >= 1 and mark <= 10)
 );
 
-CREATE TABLE bshop.purchase (
+CREATE TABLE IF NOT EXISTS bshop.purchase (
   purchase_id INTEGER PRIMARY KEY,
   client_id INTEGER NOT NULL,
   purchas_eprice INTEGER NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE bshop.purchase (
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE bshop.purchase_product (
+CREATE TABLE IF NOT EXISTS bshop.purchase_product (
   pp_id INTEGER PRIMARY KEY,
   purchase_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,

@@ -2,7 +2,6 @@ function setCookie(name, value, options = {}) {
 
     options = {
       path: '/',
-      // add other defaults here if necessary
       ...options
     };
   
@@ -38,11 +37,12 @@ function auth_submit() {
             response => response.json()
         ).then(
             (data) => {
-                console.log(data)
-                if (data.status == 403) {
-                    document.getElementById("serverMessageBox").innerHTML="Login failed!"
-                } else {
-                    document.getElementById("serverMessageBox").innerHTML="Login succeeded!"
+                document.getElementById("serverMessageBox").innerHTML=data.description;
+                if (data.status != 403) {
+                    setCookie("username", data.userName);
+                    setCookie("token", data.token);
+                    console.log(document.cookie);
+                    window.location.replace("/");
                 }
             }
         ).catch(
