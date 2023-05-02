@@ -16,9 +16,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER users_update_on_delete
+CREATE OR REPLACE TRIGGER user_update_on_delete
 AFTER DELETE ON bshop.user
-FOR EACH ROW EXECUTE FUNCTION bshop.write_users_history_on_delete();
+FOR EACH ROW EXECUTE FUNCTION bshop.write_user_history_on_delete();
 
 
 CREATE OR REPLACE FUNCTION bshop.write_user_history_on_insert_or_update()
@@ -39,6 +39,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE TRIGGER users_update_on_insert_or_update
+CREATE OR REPLACE TRIGGER user_update_on_insert_or_update
 AFTER INSERT OR UPDATE ON bshop.user
-FOR EACH ROW EXECUTE FUNCTION bshop.write_users_history_on_insert_or_update();
+FOR EACH ROW EXECUTE FUNCTION bshop.write_user_history_on_insert_or_update();
