@@ -54,29 +54,3 @@
 | `purchase_id`  | Идентификатор покупки                              | `INTEGER`      | `FOREIGN KEY NOT NULL`|
 | `product_id`   | Идентификатор продукта                             | `INTEGER`      | `FOREIGN KEY NOT NULL`|
 | `amount`       | Текстовое описание количества купленного продукта  | `TEXT`         | `NOT NULL`            |
-
-
-**USER_HISTORY** (версионная таблица для пользователей)  
-
-| Название             | Описание                        | Тип данных     | Ограничение           |
-|----------------------| --------------------------------| -------------- |-----------------------|
-| `update_id`          | Идентификатор                   | `INTEGER`      | `PRIMARY KEY`         |
-| `user_id`            | Идентификатор объекта изменения | `INTEGER`      | `FOREIGN KEY NOT NULL`|
-| `phone_number`       | Новый номер телефона            | `VARCHAR(20)`  | `NOT NULL`            |
-| `old_phone_number`   | Старый номер телефона           | `VARCHAR(20)`  | `NOT NULL`            |
-| `email`              | Новый почтовый адрес            | `VARCHAR(200)` | `NOT NULL`            |
-| `old_email`          | Старый почтовый адрес           | `VARCHAR(200)` | `NOT NULL`            |
-| `hashed_password`    | Новый хеш пароля                | `VARCHAR(200)` | `NOT NULL`            |
-| `old_hashed_password`| Старый хеш пароля               | `VARCHAR(200)` | `NOT NULL`            |
-
-
-**PRODUCT_HISTORY** (версионная таблица для продуктов) 
-
-| Название          | Описание                        | Тип данных     | Ограничение           |
-|-------------------| --------------------------------| -------------- |-----------------------|
-| `update_id`       | Идентификатор                   | `INTEGER`      | `PRIMARY KEY`         |
-| `product_id`      | Идентификатор объекта изменения | `INTEGER`      | `FOREIGN KEY NOT NULL`|
-| `price`           | Новая цена                      | `INTEGER`      | `NOT NULL`            |
-| `old_price`       | Старая цена                     | `INTEGER`      | `NOT NULL`            |
-| `rating`          | Новый рейтинг                   | `NUMERIC`      | `NOT NULL`            |
-| `old_rating`      | Старый рейтинг                  | `NUMERIC`      |                       |
