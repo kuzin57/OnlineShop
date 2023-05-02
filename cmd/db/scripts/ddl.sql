@@ -63,7 +63,11 @@ CREATE TABLE IF NOT EXISTS bshop.user_history (
 );
 
 CREATE TABLE IF NOT EXISTS bshop.product (
+<<<<<<< HEAD
   product_id INTEGER PRIMARY KEY,
+=======
+  product_id SERIAL UNIQUE,
+>>>>>>> 1fc0b1e (resolved all conflicts)
   category VARCHAR(100) NOT NULL,
   name VARCHAR(100) NOT NULL,
   brand VARCHAR(50),
@@ -73,7 +77,7 @@ CREATE TABLE IF NOT EXISTS bshop.product (
 );
 
 CREATE TABLE IF NOT EXISTS bshop.review (
-  review_id INTEGER PRIMARY KEY,
+  review_id SERIAL UNIQUE,
   user_id INTEGER NOT NULL,
   comment TEXT,
   product_id INTEGER NOT NULL,
@@ -84,16 +88,16 @@ CREATE TABLE IF NOT EXISTS bshop.review (
   CHECK (mark >= 1 and mark <= 10)
 );
 
-CREATE TABLE IF NOT EXISTS bshop.purchase (
-  purchase_id INTEGER PRIMARY KEY,
+CREATE TABLE bshop.purchase (
+  purchase_id SERIAL UNIQUE,
   client_id INTEGER NOT NULL,
-  purchas_eprice INTEGER NOT NULL,
+  purchase_price INTEGER NOT NULL,
   date DATE NOT NULL,
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS bshop.purchase_product (
-  pp_id INTEGER PRIMARY KEY,
+CREATE TABLE bshop.purchase_product (
+  pp_id SERIAL UNIQUE,
   purchase_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
   amount TEXT NOT NULL,
