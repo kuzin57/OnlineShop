@@ -51,23 +51,24 @@ CREATE TABLE IF NOT EXISTS bshop.purchase_product (
 );
 
 CREATE TABLE IF NOT EXISTS bshop.user_history (
-  update_id SERIAL UNIQUE,
   user_id INTEGER NOT NULL,
+  firstname VARCHAR(100) NOT NULL,
+  surname VARCHAR(100) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
-  old_phone_number VARCHAR(20) NOT NULL,
-  email VARCHAR(200) NOT NULL,
-  old_email VARCHAR(200) NOT NULL,
+  email VARCHAR(200) UNIQUE NOT NULL,
+  birthdate DATE NOT NULL,
   hashed_password VARCHAR(200) NOT NULL,
-  old_hashed_password VARCHAR(200) NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
+  change_time TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS bshop.product_history (
-  update_id SERIAL UNIQUE,
   product_id INTEGER NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  brand VARCHAR(50),
   price INTEGER NOT NULL,
-  old_price INTEGER NOT NULL,
+  available BOOLEAN NOT NULL,
   rating NUMERIC NOT NULL,
-  old_rating NUMERIC,
-  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
+  rating_amount BIGINT NOT NULL,
+  change_time TIMESTAMP
 );
