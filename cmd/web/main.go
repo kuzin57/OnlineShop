@@ -30,6 +30,7 @@ func main() {
 	pageHandlers = append(pageHandlers, handlers.AddAuthPageHandler(mux, pagesConfig, postgres))
 	pageHandlers = append(pageHandlers, handlers.AddRegistrationPageHandler(mux, pagesConfig, postgres))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	pageHandlers = append(pageHandlers, handlers.AddCatalogueHandler(mux, pagesConfig, repo))
 =======
 
@@ -42,6 +43,9 @@ func main() {
 	// 	log.Fatal(err)
 	// }
 >>>>>>> 35fe851 (made some changes)
+=======
+	pageHandlers = append(pageHandlers, handlers.AddCatalogueHandler(mux, pagesConfig, repo))
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

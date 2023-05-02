@@ -2,11 +2,16 @@ package db
 
 const (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	usersTable    = "bshop.user"
 	productsTable = "bshop.product"
 =======
 	usersTable = "bshop.user"
 >>>>>>> 35fe851 (made some changes)
+=======
+	usersTable    = "bshop.user"
+	productsTable = "bshop.product"
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 )
 
 type User struct {
@@ -19,6 +24,9 @@ type User struct {
 	Password    string `json:"password"`
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 
 type Product struct {
 	Id           uint32  `json:"id"`
@@ -42,5 +50,8 @@ func NewProduct(category string, name string, brand string,
 		Rating:    rating,
 	}
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 35fe851 (made some changes)
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)

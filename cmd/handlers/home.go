@@ -2,6 +2,7 @@ package handlers
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	"fmt"
 	"html/template"
@@ -15,6 +16,11 @@ import (
 =======
 const (
 	tokenHeader = "Token"
+=======
+	"net/http"
+
+	"github.com/kuzin57/OnlineShop/cmd/auth"
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 )
 
 >>>>>>> 35fe851 (made some changes)
@@ -42,10 +48,14 @@ func (h *homePageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 		if err := auth.CheckAuthorized(w, r); err != nil {
 			w.Header().Add("Authorized", "false")
 			executeTemplates(w, h.htmlSources)
 			return
+<<<<<<< HEAD
 		}
 
 		w.Header().Add("Authorized", "true")
@@ -71,5 +81,11 @@ func (h *homePageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 
 		// }
 >>>>>>> 35fe851 (made some changes)
+=======
+		}
+
+		w.Header().Add("Authorized", "true")
+		executeTemplates(w, h.htmlSources)
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 	}
 }

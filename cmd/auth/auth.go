@@ -13,6 +13,7 @@ const (
 	salt     = "vndfkjnkvj938958*&^*&*"
 	signKey  = "w87r8fyschcjdh*&^*&^*&hbj"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	tokenTTL = time.Second * 30
 )
 
@@ -26,6 +27,14 @@ type AuthService struct {
 type AuthService struct {
 	auth *db.AuthPostgres
 >>>>>>> 35fe851 (made some changes)
+=======
+	tokenTTL = time.Second * 30
+)
+
+type AuthService struct {
+	auth         *db.AuthPostgres
+	serviceEmail *ServiceEmail
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 }
 
 type tokenClaims struct {
@@ -36,22 +45,33 @@ type tokenClaims struct {
 func NewAuthService(postgres *db.AuthPostgres) *AuthService {
 	return &AuthService{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		auth:         postgres,
 		serviceEmail: InitServiceEmail(),
 =======
 		auth: postgres,
 >>>>>>> 35fe851 (made some changes)
+=======
+		auth:         postgres,
+		serviceEmail: InitServiceEmail(),
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 	}
 }
 
 func (s *AuthService) CreateUser(user *db.User) (uint32, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 	if err := s.auth.CheckEmailUnique(user.Email); err != nil {
 		return 0, err
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> 35fe851 (made some changes)
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 	user.Password = generateHashedPassword(user.Password)
 	return s.auth.CreateUser(user)
 }
@@ -74,6 +94,9 @@ func (s *AuthService) GenerateToken(email, password string) (string, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 func (s *AuthService) ParseToken(accessToken string) (uint32, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (any, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -97,9 +120,12 @@ func (s *AuthService) ParseToken(accessToken string) (uint32, error) {
 
 func (s *AuthService) RecoverPassword(email string) error {
 	return nil
+<<<<<<< HEAD
 =======
 func (s *AuthService) ParseToken(token string) (int, error) {
 	return 0, nil
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 }
 
 func generateHashedPassword(password string) string {

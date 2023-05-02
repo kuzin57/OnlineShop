@@ -5,6 +5,9 @@ import (
 <<<<<<< HEAD
 	"encoding/json"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
 	"net/http"
 	"strings"
 
@@ -127,15 +130,7 @@ func (s htmlSources) authPageHandler(w http.ResponseWriter, r *http.Request) {
 func (h *authPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		ts, err := template.ParseFiles(h.htmlSources...)
-
-		if err != nil || ts == nil {
-			logError(err, w)
-		}
-
-		if err = ts.Execute(w, nil); err != nil {
-			logError(err, w)
-		}
+		executeTemplates(w, h.htmlSources)
 
 	case http.MethodPost:
 		user := db.User{}
@@ -144,13 +139,15 @@ func (h *authPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		body = body[:bytes]
 
 		response := Response{}
-
 		if err := json.Unmarshal(body, &user); err != nil {
 			response.Status = http.StatusBadRequest
 			response.Description = err.Error()
 			sendResponse(w, response)
 			return
 		}
+
+		indexDog := strings.Index(user.Email, "@")
+		response.UserName = user.Email[:indexDog]
 
 		token, err := h.authService.GenerateToken(user.Email, user.Password)
 		if err != nil {
