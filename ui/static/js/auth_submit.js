@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 function setCookie(name, value, options = {}) {
 
     options = {
       path: '/',
-      // add other defaults here if necessary
       ...options
     };
   
@@ -24,8 +22,6 @@ function setCookie(name, value, options = {}) {
     document.cookie = updatedCookie;
   }
 
-=======
->>>>>>> ba7e9b9 (removed useless sql scripts)
 function auth_submit() {
     var inputForm = document.getElementById("auth_form");
     inputForm.addEventListener("submit", async (e)=> {
@@ -40,11 +36,6 @@ function auth_submit() {
         }).then(
             response => response.json()
         ).then(
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 4b8c4fc (removed useless sql scripts)
             (data) => {
                 document.getElementById("serverMessageBox").innerHTML=data.description;
                 if (data.status != 403) {
@@ -58,43 +49,5 @@ function auth_submit() {
             error => console.error(error)
         )
         
-<<<<<<< HEAD
-=======
-=======
-            (data) => {console.log(data);document.getElementById("serverMessageBox").innerHTML=data}
-        ).catch(
-            error => console.error(error)
-        )
-    
-
-        // // (async () => {
-        //     const rawResponse = await fetch('/auth', {
-        //       method: 'POST',
-        //       headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //       },
-        //       body: JSON.stringify({a: 1, b: 'Textual content'})
-        //     });
-        //     const content = await rawResponse.json();
-          
-        //     console.log(content);
-         // })();
->>>>>>> 021580b (fix test + fix communication between front and back)
-=======
-            (data) => {
-                console.log(data)
-                if (data.status == 403) {
-                    document.getElementById("serverMessageBox").innerHTML="Login failed!"
-                } else {
-                    document.getElementById("serverMessageBox").innerHTML="Login succeeded!"
-                }
-            }
-        ).catch(
-            error => console.error(error)
-        )
-        
->>>>>>> ba7e9b9 (removed useless sql scripts)
->>>>>>> 4b8c4fc (removed useless sql scripts)
     });
 }
