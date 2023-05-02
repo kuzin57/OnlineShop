@@ -45,8 +45,6 @@ func (suite *PageHandlersTestSuite) TestAddHomePageHandler() {
 		suite.T().Errorf("status code is not OK!")
 	}
 
-	os.WriteFile("./correct_test_cases/home_page_correct_response.html", rr.Body.Bytes(), 0644)
-
 	if rr.Body.String() != string(suite.contentOfHTML) {
 		suite.T().Errorf("Unexpected body")
 	}

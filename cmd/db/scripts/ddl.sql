@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS bshop.review (
   CHECK (mark >= 1 and mark <= 10)
 );
 
-CREATE TABLE bshop.purchase (
+CREATE TABLE IF NOT EXISTS bshop.purchase (
   purchase_id SERIAL UNIQUE,
   client_id INTEGER NOT NULL,
   purchase_price INTEGER NOT NULL,

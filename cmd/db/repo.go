@@ -42,10 +42,6 @@ func (r *Repository) CheckDataBaseAvailable() error {
 func (r *Repository) MakeQueryRow(query string, args ...any) *sql.Row {
 	return r.db.QueryRow(query, args...)
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 573a019 (finished with authorization, started with password recovery)
 
 func (r *Repository) GetProducts() ([]Product, error) {
 	query := fmt.Sprintf(`SELECT name, brand, category, rating,
@@ -79,8 +75,3 @@ func (r *Repository) GetProducts() ([]Product, error) {
 
 	return products, nil
 }
-<<<<<<< HEAD
-=======
->>>>>>> 35fe851 (made some changes)
-=======
->>>>>>> 573a019 (finished with authorization, started with password recovery)

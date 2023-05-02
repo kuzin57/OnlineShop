@@ -10,19 +10,10 @@ import (
 	"github.com/kuzin57/OnlineShop/cmd/services"
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 573a019 (finished with authorization, started with password recovery)
 const (
 	successRegistration = "Successful registration!"
 )
 
-<<<<<<< HEAD
-=======
->>>>>>> 35fe851 (made some changes)
-=======
->>>>>>> 573a019 (finished with authorization, started with password recovery)
 type registrationHandler struct {
 	path          string
 	htmlTemplates []string
@@ -70,8 +61,6 @@ func (h *registrationHandler) Handle(w http.ResponseWriter, r *http.Request) {
 			logError(err, w)
 		}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 		w.Header().Set("Content-Type", "application/json")
 		response := Response{}
 
@@ -87,33 +76,5 @@ func (h *registrationHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		response.Description = successRegistration
 
 		sendResponse(w, response)
-=======
-=======
-		w.Header().Set("Content-Type", "application/json")
-		response := Response{}
-
->>>>>>> 573a019 (finished with authorization, started with password recovery)
-		_, err := h.authService.CreateUser(&user)
-		if err != nil {
-			response.Status = http.StatusForbidden
-			response.Description = err.Error()
-			sendResponse(w, response)
-			return
-		}
-
-		response.Status = http.StatusOK
-		response.Description = successRegistration
-
-<<<<<<< HEAD
-		js, err := json.Marshal(&response)
-		if err != nil {
-			logError(err, w)
-		}
-
-		w.Write([]byte(js))
->>>>>>> 35fe851 (made some changes)
-=======
-		sendResponse(w, response)
->>>>>>> 573a019 (finished with authorization, started with password recovery)
 	}
 }
