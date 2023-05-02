@@ -2,6 +2,7 @@ function setCookie(name, value, options = {}) {
 
     options = {
       path: '/',
+      // add other defaults here if necessary
       ...options
     };
   
