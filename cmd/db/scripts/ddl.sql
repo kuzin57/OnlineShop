@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS bshop.review (
   CHECK (mark >= 1 and mark <= 10)
 );
 
-CREATE TABLE bshop.purchase (
+CREATE TABLE IF NOT EXISTS bshop.purchase (
   purchase_id SERIAL UNIQUE,
   client_id INTEGER NOT NULL,
   purchase_price INTEGER NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE bshop.purchase (
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE bshop.purchase_product (
+CREATE TABLE IF NOT EXISTS bshop.purchase_product (
   pp_id SERIAL UNIQUE,
   purchase_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
