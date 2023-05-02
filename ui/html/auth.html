@@ -12,9 +12,12 @@
         <header>
             <h1><a href='/'>bShop</a></h1>
         </header>
+        <main>
         <h2>Login</h2>
 
-        <p id="status"></p>
+        <div id="serverMessageBox" style="text-align: left">
+        
+        </div>
 
         <form id="auth_form" method="post">
             <label for="email">Email:</label><br>
@@ -23,7 +26,12 @@
             <input type="password" id="password" name="password"><br>
             <input type="submit" onclick="auth_submit()" value="Submit">
         </form>
-        <script src="../static/js/auth_submit.js"></script>
+
         <a href='/registration'>Not registered yet?</a>
+
+        </main>
+        <script src="../static/js/auth_submit.js"></script>
+        
+        {{template "footer" .}}
     </body>
 </html>

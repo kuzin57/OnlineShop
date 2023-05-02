@@ -1,43 +1,54 @@
+function setCookie(name, value, options = {}) {
+
+    options = {
+      path: '/',
+      // add other defaults here if necessary
+      ...options
+    };
+  
+    if (options.expires instanceof Date) {
+      options.expires = options.expires.toUTCString();
+    }
+  
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  
+    for (let optionKey in options) {
+      updatedCookie += "; " + optionKey;
+      let optionValue = options[optionKey];
+      if (optionValue !== true) {
+        updatedCookie += "=" + optionValue;
+      }
+    }
+  
+    document.cookie = updatedCookie;
+  }
+
 function auth_submit() {
-    // let form = document.forms["auth_form"];
-    const url = "/127.0.0.1:7000/auth"
-
     var inputForm = document.getElementById("auth_form");
-    inputForm.addEventListener("submit", getValues);
-}
+    inputForm.addEventListener("submit", async (e)=> {
+        e.preventDefault()
+        
+        const formData = new FormData(inputForm)
+        console.log(formData.get("email"))
 
-function getValues(event) {
-    event.preventDefault();
-    post_email_and_password(this.email.value, this.password.value);
-    // this.http.request(this.server)
-}
-
-function post_email_and_password(email, password) {
-    fetch("/auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        }),
-    }).then(
-        response => {console.log(response.text());document.getElementById("status").innerText = response.status;}
-    ).catch(
-        error => console.error(error)
-    )
-    // document.getElementById("status").innerHTML = JSON.stringify(response.text());
-
-
-
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", "/auth", true);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.send(JSON.stringify({
-    //     email: email,
-    //     password: password
-    // }));
-    // document.getElementById("status").innerHTML = xhr.status;
-    // console.log(xhr.status);
+        fetch("/auth", {
+            method: "POST",
+            body: JSON.stringify({email: formData.get("email"), password: formData.get("password")}),
+        }).then(
+            response => response.json()
+        ).then(
+            (data) => {
+                document.getElementById("serverMessageBox").innerHTML=data.description;
+                if (data.status != 403) {
+                    setCookie("username", data.userName);
+                    setCookie("token", data.token);
+                    console.log(document.cookie);
+                    window.location.replace("/");
+                }
+            }
+        ).catch(
+            error => console.error(error)
+        )
+        
+    });
 }

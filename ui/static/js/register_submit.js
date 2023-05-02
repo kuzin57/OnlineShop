@@ -1,21 +1,42 @@
 function register_submit() {
-    let form = document.forms["register_form"];
-    form.addEventListener("submit", getValues);
-}
+    var inputForm = document.getElementById("register_form");
+    inputForm.addEventListener("submit", async (e)=> {
+        e.preventDefault();
+        
+        const formData = new FormData(inputForm);
 
-function getValues(event) {
-    event.preventDefault();
-    post_user_parameters(this.username.value, this.email.value, this.password.value);
-}
-
-function post_user_parameters(username, email, password) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/registration", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        username: username,
-        email: email,
-        password: password
-    }));
-    // xhr.responseText
+        if (formData.get("password") != formData.get("password_again")) {
+            document.getElementById("serverMessageBox").innerHTML="Passwords don't match";
+            console.log("i am in if");
+            e.stopPropagation();
+            return false;
+        }
+        console.log("i am in else");
+        fetch("/registration", {
+            method: "POST",
+            body: JSON.stringify({
+                email: formData.get("email"),
+                password: formData.get("password"),
+                firstname: formData.get("firstname"),
+                surname: formData.get("surname"),
+                birthday: formData.get("birthday"),
+                phone: formData.get("phone number")
+            }),
+        }).then(
+            response => response.json()
+        ).then(
+            (data) => {
+                console.log(data)
+                document.getElementById("serverMessageBox").innerHTML=data.description
+                if (data.status != 403) {
+                    document.getElementById("register_form").remove()
+                    document.getElementById("serverMessageBox").innerHTML="<h2>Thank you for registration!</h2><h3>Now you can <a href='/auth'>log in</a></h3>"
+                }
+            }
+        ).catch(
+            error => console.error(error)
+        );
+        
+        return true;
+    });
 }
