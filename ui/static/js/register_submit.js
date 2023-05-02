@@ -27,10 +27,10 @@ function register_submit() {
         ).then(
             (data) => {
                 console.log(data)
-                if (data.status == 403) {
-                    document.getElementById("serverMessageBox").innerHTML="Registration failed!"
-                } else {
-                    document.getElementById("serverMessageBox").innerHTML="Registration succeeded!"
+                document.getElementById("serverMessageBox").innerHTML=data.description
+                if (data.status != 403) {
+                    document.getElementById("register_form").remove()
+                    document.getElementById("serverMessageBox").innerHTML="<h2>Thank you for registration!</h2><h3>Now you can <a href='/auth'>log in</a></h3>"
                 }
             }
         ).catch(
