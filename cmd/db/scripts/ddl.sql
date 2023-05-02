@@ -29,14 +29,14 @@ CREATE TABLE IF NOT EXISTS bshop.review (
   date DATE NOT NULL,
   mark INTEGER NOT NULL,
   FOREIGN KEY (user_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
+  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE,
+  CHECK (mark >= 1 and mark <= 10)
 );
 
 CREATE TABLE IF NOT EXISTS bshop.purchase (
   purchase_id SERIAL UNIQUE,
   client_id INTEGER NOT NULL,
-  purchas_eprice INTEGER NOT NULL,
->>>>>>> 793bb79 (ddl added)
+  purchase_price INTEGER NOT NULL,
   date DATE NOT NULL,
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
@@ -63,11 +63,7 @@ CREATE TABLE IF NOT EXISTS bshop.user_history (
 );
 
 CREATE TABLE IF NOT EXISTS bshop.product (
-<<<<<<< HEAD
-  product_id INTEGER PRIMARY KEY,
-=======
   product_id SERIAL UNIQUE,
->>>>>>> 1fc0b1e (resolved all conflicts)
   category VARCHAR(100) NOT NULL,
   name VARCHAR(100) NOT NULL,
   brand VARCHAR(50),
@@ -96,8 +92,9 @@ CREATE TABLE bshop.purchase (
   FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE bshop.purchase_product (
-  pp_id SERIAL UNIQUE,
+
+CREATE TABLE IF NOT EXISTS bshop.purchase_product (
+  pp_id INTEGER PRIMARY KEY,
   purchase_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
   amount TEXT NOT NULL,
