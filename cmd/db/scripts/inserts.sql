@@ -59,4 +59,4 @@ INSERT INTO bshop.purchase_product (pp_id, purchase_id, product_id, amount) VALU
 (7, 3, 8, '4 пачки'),
 (8, 4, 9, '3 шт'),
 (9, 4, 6, '2 пачки'),
-(10, 5, 10, '1 шт')
+(10, 5, 10, '1 шт');

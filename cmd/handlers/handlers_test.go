@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"errors"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -10,30 +9,26 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+const (
+	pathToConf = "/home/kuzin57/OnlineShop/cmd/config/page_handlers.yaml"
+)
+
 type PageHandlersTestSuite struct {
 	suite.Suite
-	htmlTemps     []string
 	contentOfHTML []byte
+	handler       PageHandler
 }
 
 func (suite *PageHandlersTestSuite) SetupTest() {
-	suite.htmlTemps = []string{
-		"../../ui/html/home.html",
-		"../../ui/html/base.html",
-		"../../ui/html/footer.html",
-	}
-
-	for _, file := range suite.htmlTemps {
-		if _, err := os.Stat(file); errors.Is(err, os.ErrNotExist) {
-			suite.T().Fatalf("file %s does not exist", file)
-		}
-	}
-
 	var err error
 	suite.contentOfHTML, err = os.ReadFile("./correct_test_cases/home_page_correct_response.html")
 	if err != nil {
 		suite.T().Fatal(err)
 	}
+
+	mux := http.NewServeMux()
+	pagesConfig := GetHandlersParameters(pathToConf)
+	suite.handler = AddHomePageHandler(mux, pagesConfig)
 }
 
 func (suite *PageHandlersTestSuite) TestAddHomePageHandler() {
@@ -43,12 +38,14 @@ func (suite *PageHandlersTestSuite) TestAddHomePageHandler() {
 	}
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(htmlSources(suite.htmlTemps).homePageHandler)
+	handler := http.HandlerFunc(suite.handler.Handle)
 
 	handler.ServeHTTP(rr, req)
 	if status := rr.Code; status != http.StatusOK {
 		suite.T().Errorf("status code is not OK!")
 	}
+
+	os.WriteFile("./correct_test_cases/home_page_correct_response.html", rr.Body.Bytes(), 0644)
 
 	if rr.Body.String() != string(suite.contentOfHTML) {
 		suite.T().Errorf("Unexpected body")

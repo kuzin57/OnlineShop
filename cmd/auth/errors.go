@@ -3,6 +3,6 @@ package auth
 import "errors"
 
 var (
-	errInvalidPassword = errors.New("Invalid password")
-	errIncorrectEmail  = errors.New("No user with this email exists")
+	errInvalidSigningMethod = errors.New("invalid signing method")
+	errInvalidClaims        = errors.New("claims are not of type *tokenClaims")
 )

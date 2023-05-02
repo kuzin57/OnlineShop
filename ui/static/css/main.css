@@ -313,3 +313,72 @@ footer {
     color: #6A6C6F;
     text-align: center;
 }
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    display: inline-block;
+    position: absolute;
+    padding-left: 39cm;
+    padding-top: 1cm;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-options {
+    display: none;
+    position: absolute;
+    overflow: auto;
+    background-color: #fbfbfb;
+    /* min-width: 160px; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+/* .dropdown-options a {
+    color: rgb(182, 171, 14);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: none;
+} */
+
+/* Change color of dropdown links on hover */
+.dropdown-options a:hover {background-color: #481187}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-options {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #0c0b10;
+}
+
+table, th, td {
+    border: 1px solid;
+    width: 50%;
+    margin-left:15%; 
+    margin-right:15%;
+    margin-top: 10%;
+}
+<<<<<<< HEAD
+=======
+form {
+    float: right;
+}
+>>>>>>> 35fe851 (made some changes)
+=======
+>>>>>>> 573a019 (finished with authorization, started with password recovery)
