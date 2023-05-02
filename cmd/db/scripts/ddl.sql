@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS bshop.product (
   price INTEGER NOT NULL,
   available BOOLEAN NOT NULL,
   rating NUMERIC NOT NULL,
+  rating_amount BIGINT NOT NULL,
   CHECK (rating <= 10)
 );
 
