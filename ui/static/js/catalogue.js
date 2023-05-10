@@ -1,4 +1,4 @@
-import { getCookie } from "./cookies.js";
+import { getCookie, setCookie } from "./cookies.js";
 
 fetch('/catalogue', {
     method: 'POST',
@@ -18,10 +18,17 @@ fetch('/catalogue', {
         <div class="dropdown-options">
           <button>Orders</button>
           <button>Settings</button>
-          <button>Logout</button>
+          <button id="logout-button">Logout</button>
         </div>
       </div>
       `;
+
+      const logout = document.getElementById("logout-button");
+      logout.addEventListener("click", function() {
+        setCookie("token", "");
+        window.location.reload();
+      });
+
     } else {
       document.cookie = "";
       document.getElementById("login").innerHTML=`
