@@ -12,9 +12,9 @@ fetch('/catalogue', {
     let authorized = response.headers.get('Authorized');
     console.log(authorized);
     if (authorized == "true") {
-      document.getElementById("Dropdown").innerHTML=`
+      document.getElementById("login-username").innerHTML=`
       <div class="dropdown">
-        <button>` + getCookie("username") + `</button>
+        <button">` + getCookie("username") + `</button>
         <div class="dropdown-options">
           <button>Orders</button>
           <button>Settings</button>
@@ -30,11 +30,10 @@ fetch('/catalogue', {
       });
 
     } else {
-      document.cookie = "";
-      document.getElementById("login").innerHTML=`
-      <form id="login button" action="/auth">
-        <input type="submit" style="float: right;" value="Login"/>
-      </form>
+      document.getElementById("login-username").innerHTML=`
+      <a href="/auth">  
+       <button>Login</button>  
+      </a>
       `; 
     }
 
