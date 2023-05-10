@@ -1,4 +1,5 @@
 import { delete_cookies, getCookie, setCookie } from "./cookies.js";
+import { setDropdown } from "./dropdown.js";
 
 fetch('/', {
     method: 'GET',
@@ -12,22 +13,7 @@ fetch('/', {
     let profile = response.headers.get('Profile');
     console.log(authorized);
     if (authorized == "true") {
-      document.getElementById("login-username").innerHTML=`
-      <div class="dropdown">
-        <button>` + getCookie("username") + `</button>
-        <div class="dropdown-options">
-          <button>Orders</button>
-          <button>Settings</button>
-          <button id="logout-button">Logout</button>
-        </div>
-      </div>
-      `;
-
-      const logout = document.getElementById("logout-button");
-      logout.addEventListener("click", function() {
-        setCookie("token", "");
-        window.location.reload();
-      });
+      setDropdown();
        
       if (document.URL == "http://localhost:7000/") {
         document.getElementById("serverMessageBox").innerHTML = "Hello, " + getCookie("username");  

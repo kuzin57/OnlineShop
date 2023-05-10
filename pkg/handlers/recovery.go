@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/kuzin57/OnlineShop/cmd/auth"
-	"github.com/kuzin57/OnlineShop/cmd/db"
-	"github.com/kuzin57/OnlineShop/cmd/services"
+	"github.com/kuzin57/OnlineShop/pkg/auth"
+	"github.com/kuzin57/OnlineShop/pkg/db"
+	"github.com/kuzin57/OnlineShop/pkg/services"
 )
 
 const (

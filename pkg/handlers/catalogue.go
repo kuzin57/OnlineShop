@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kuzin57/OnlineShop/cmd/auth"
-	"github.com/kuzin57/OnlineShop/cmd/db"
+	"github.com/kuzin57/OnlineShop/pkg/auth"
+	"github.com/kuzin57/OnlineShop/pkg/db"
 )
 
 type cataloguePageHandler struct {

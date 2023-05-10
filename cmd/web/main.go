@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kuzin57/OnlineShop/cmd/db"
-	"github.com/kuzin57/OnlineShop/cmd/handlers"
+	"github.com/kuzin57/OnlineShop/pkg/db"
+	"github.com/kuzin57/OnlineShop/pkg/handlers"
 )
 
 const (

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/kuzin57/OnlineShop/cmd/db"
+	"github.com/kuzin57/OnlineShop/pkg/db"
 )
 
 const (
