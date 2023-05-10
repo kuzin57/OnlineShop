@@ -1,18 +1,4 @@
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+import { delete_cookies, getCookie } from "./cookies.js";
 
 fetch('/', {
     method: 'GET',
@@ -30,12 +16,24 @@ fetch('/', {
       <div class="dropdown">
         <button>` + getCookie("username") + `</button>
         <div class="dropdown-options">
-          <a href="#">Orders</a>
-          <a href="#">Settings</a>
-          <a href="#">Logout</a>
+          <a href="/orders">Orders</a>
+          <a href="/settings">Settings</a>
+          <a href="/" id="logout">Logout</a>
         </div>
       </div>
       `;
+
+      const logout = document.getElementById("logout");
+      logout.addEventListener("click", function() {
+        console.log("lalalalaal");
+        delete_cookies();
+        window.location.replace("/");
+      });
+       
+      console.log("hahaha ", document.URL);
+      if (document.URL == "http://localhost:7000/") {
+        document.getElementById("serverMessageBox").innerHTML = "Hello, " + getCookie("username");  
+      }
     } else {
       document.getElementById("login").innerHTML=`
       <form id="login button" action="/auth">

@@ -79,8 +79,8 @@ func (s *AuthService) ParseToken(accessToken string) (uint32, error) {
 	return claims.UserID, nil
 }
 
-func (s *AuthService) RecoverPassword(email string) error {
-	return nil
+func (s *AuthService) UpdatePassword(email, newPassword string) error {
+	return s.auth.UpdatePassword(email, generateHashedPassword(newPassword))
 }
 
 func generateHashedPassword(password string) string {

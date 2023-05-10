@@ -7,4 +7,5 @@ var (
 	errNoSuchUser        = errors.New("no such user")
 	errIncorrectPassword = errors.New("incorrect password")
 	errEmailExists       = errors.New("email already exists")
+	errNoSuchEmail       = errors.New("no user with such email")
 )

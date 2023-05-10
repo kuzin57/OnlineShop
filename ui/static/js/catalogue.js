@@ -1,25 +1,10 @@
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-}
+import { getCookie } from "./cookies.js";
 
-let token = getCookie("token")
 fetch('/catalogue', {
     method: 'POST',
     headers: new Headers({
       'Content-Type': 'application/json',
-      'Token': token
+      'Token': getCookie("token")
     })
   })
   .then(response => {
@@ -37,10 +22,6 @@ fetch('/catalogue', {
         </div>
       </div>
       `;
-
-      // <a href="#">Orders</a>
-      //     <a href="#">Settings</a>
-      //     <a href="#">Logout</a>
     } else {
       document.cookie = "";
       document.getElementById("login").innerHTML=`
