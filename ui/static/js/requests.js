@@ -1,4 +1,4 @@
-import { delete_cookies, getCookie } from "./cookies.js";
+import { delete_cookies, getCookie, setCookie } from "./cookies.js";
 
 fetch('/', {
     method: 'GET',
@@ -25,9 +25,8 @@ fetch('/', {
 
       const logout = document.getElementById("logout");
       logout.addEventListener("click", function() {
-        console.log("lalalalaal");
-        delete_cookies();
-        window.location.replace("/");
+        setCookie("token", "");
+        window.location.reload();
       });
        
       console.log("hahaha ", document.URL);

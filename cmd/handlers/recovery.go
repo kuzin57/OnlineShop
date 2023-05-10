@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -64,12 +63,6 @@ func (h *recoveryPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		email := r.Header[http.CanonicalHeaderKey(emailHeader)]
 		code := r.Header[http.CanonicalHeaderKey(codeHeader)]
 		newPassword := r.Header[http.CanonicalHeaderKey(newPasswordHeader)]
-		fmt.Println(
-			"hehehehe",
-			email,
-			code,
-			newPassword,
-		)
 
 		if email == nil {
 			response.Description = "No email provided"
