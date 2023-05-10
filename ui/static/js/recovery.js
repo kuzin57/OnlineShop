@@ -86,7 +86,7 @@ function set_new_password() {
 
                     var s = document.createElement("input");
                     s.setAttribute("type", "submit");
-                    s.setAttribute("value", "Submit");
+                    s.setAttribute("value", "Confirm");
                     s.setAttribute("id", "send_new_password");
 
                     s.addEventListener('click', send_new_password_to_server);
