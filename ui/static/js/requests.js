@@ -38,11 +38,5 @@ fetch('/', {
        <button>Login</button>  
       </a>
       `;
-      // `
-      // <form id="login button" action="/auth">
-      //   <input type="submit" value="Login"/>
-      // </form>
-      
-      // `; 
     }
   })
