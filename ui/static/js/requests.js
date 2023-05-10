@@ -12,18 +12,18 @@ fetch('/', {
     let profile = response.headers.get('Profile');
     console.log(authorized);
     if (authorized == "true") {
-      document.getElementById("Dropdown").innerHTML=`
+      document.getElementById("login-username").innerHTML=`
       <div class="dropdown">
         <button>` + getCookie("username") + `</button>
         <div class="dropdown-options">
-          <a href="/orders">Orders</a>
-          <a href="/settings">Settings</a>
-          <a href="/" id="logout">Logout</a>
+          <button>Orders</button>
+          <button>Settings</button>
+          <button id="logout-button">Logout</button>
         </div>
       </div>
       `;
 
-      const logout = document.getElementById("logout");
+      const logout = document.getElementById("logout-button");
       logout.addEventListener("click", function() {
         setCookie("token", "");
         window.location.reload();
@@ -33,10 +33,16 @@ fetch('/', {
         document.getElementById("serverMessageBox").innerHTML = "Hello, " + getCookie("username");  
       }
     } else {
-      document.getElementById("login").innerHTML=`
-      <form id="login button" action="/auth">
-        <input type="submit" style="float: right;" value="Login"/>
-      </form>
-      `; 
+      document.getElementById("login-username").innerHTML=`
+      <a href="/auth">  
+       <button>Login</button>  
+      </a>
+      `;
+      // `
+      // <form id="login button" action="/auth">
+      //   <input type="submit" value="Login"/>
+      // </form>
+      
+      // `; 
     }
   })
