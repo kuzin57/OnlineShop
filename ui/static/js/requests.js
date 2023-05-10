@@ -29,7 +29,6 @@ fetch('/', {
         window.location.reload();
       });
        
-      console.log("hahaha ", document.URL);
       if (document.URL == "http://localhost:7000/") {
         document.getElementById("serverMessageBox").innerHTML = "Hello, " + getCookie("username");  
       }
