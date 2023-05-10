@@ -70,3 +70,7 @@ func (a *AuthPostgres) GetUser(email string, password string) (*User, error) {
 
 	return &user, nil
 }
+
+func (a *AuthPostgres) UpdatePassword(email, newPassword string) error {
+	return a.repo.UpdatePassword(email, newPassword)
+}

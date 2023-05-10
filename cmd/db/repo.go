@@ -75,3 +75,40 @@ func (r *Repository) GetProducts() ([]Product, error) {
 
 	return products, nil
 }
+
+func (r *Repository) CheckEmailExists(email string) error {
+	query := fmt.Sprintf(`SELECT user_id FROM %s WHERE email = '%s';`, usersTable, email)
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return err
+	}
+
+	var (
+		rowsNumber int
+		name       string
+	)
+	for rows.Next() {
+		rows.Scan(&name)
+		rowsNumber++
+	}
+
+	if rowsNumber == 0 {
+		return errNoSuchEmail
+	}
+
+	return nil
+}
+
+func (r *Repository) UpdatePassword(email string, newPassword string) error {
+	query := fmt.Sprintf(
+		`UPDATE %s SET hashed_password = '%s' WHERE email = '%s';`,
+		usersTable, newPassword, email)
+
+	_, err := r.db.Query(query)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

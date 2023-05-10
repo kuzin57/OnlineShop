@@ -1,28 +1,6 @@
-function setCookie(name, value, options = {}) {
+import { setCookie } from "./cookies.js";
 
-    options = {
-      path: '/',
-      ...options
-    };
-  
-    if (options.expires instanceof Date) {
-      options.expires = options.expires.toUTCString();
-    }
-  
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-  
-    for (let optionKey in options) {
-      updatedCookie += "; " + optionKey;
-      let optionValue = options[optionKey];
-      if (optionValue !== true) {
-        updatedCookie += "=" + optionValue;
-      }
-    }
-  
-    document.cookie = updatedCookie;
-  }
-
-function auth_submit() {
+export function auth_submit() {
     var inputForm = document.getElementById("auth_form");
     inputForm.addEventListener("submit", async (e)=> {
         e.preventDefault()
@@ -48,6 +26,5 @@ function auth_submit() {
         ).catch(
             error => console.error(error)
         )
-        
     });
 }
