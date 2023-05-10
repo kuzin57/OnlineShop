@@ -14,7 +14,7 @@ fetch('/catalogue', {
     if (authorized == "true") {
       document.getElementById("login-username").innerHTML=`
       <div class="dropdown">
-        <button">` + getCookie("username") + `</button>
+        <button>` + getCookie("username") + `</button>
         <div class="dropdown-options">
           <button>Orders</button>
           <button>Settings</button>
