@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/kuzin57/OnlineShop/pkg/auth"
@@ -50,6 +51,7 @@ func (h *cataloguePageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		}
 
 		products, err := h.repo.GetProducts()
+		fmt.Println("products", products)
 		if err != nil {
 			response.Status = http.StatusInternalServerError
 			response.Description = err.Error()

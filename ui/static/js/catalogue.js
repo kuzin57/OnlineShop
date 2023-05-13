@@ -1,6 +1,11 @@
 import { getCookie, setCookie } from "./cookies.js";
 import { setDropdown } from "./dropdown.js";
+import { makeOrder } from "./make_order.js";
+import { checkNavigationPanel } from "./navigation_panel.js";
+import { Product, addProductToList, removeProductFromList } from "./product.js";
 
+checkNavigationPanel();
+document.getElementById("messageBox").innerHTML = "";
 fetch('/catalogue', {
     method: 'POST',
     headers: new Headers({
@@ -27,64 +32,105 @@ fetch('/catalogue', {
   }).then(
     (data) => {
       console.log(data.products.length)
-      const tbl = document.createElement("table");
-      const tblBody = document.createElement("tbody");
-      const headRow = document.createElement("tr");
-      
-      // adding headers to table
-      const prodNameColumn = document.createElement("td");
-      const prodNameColumnText = document.createTextNode("Название");
-      prodNameColumn.appendChild(prodNameColumnText);
-      headRow.appendChild(prodNameColumn);
-
-      const brandNameColumn = document.createElement("td");
-      const brandNameColumnText = document.createTextNode("Бренд");
-      brandNameColumn.appendChild(brandNameColumnText);
-      headRow.appendChild(brandNameColumn);
-
-      const priceColumn = document.createElement("td");
-      const priceColumnText = document.createTextNode("Цена");
-      priceColumn.appendChild(priceColumnText);
-      headRow.appendChild(priceColumn);
-
-      const ratingColumn = document.createElement("td");
-      const ratingColumnText = document.createTextNode("Рейтинг");
-      ratingColumn.appendChild(ratingColumnText);
-      headRow.appendChild(ratingColumn);
-      tblBody.appendChild(headRow);
+      var tbl = document.getElementById("container");
 
       for (let i = 0; i < data.products.length; i++) {
-        const row = document.createElement("tr");
+        var card = document.createElement("div");
+        card.setAttribute("class", "card");
+        card.setAttribute("id", "card " + i.toString());
 
-        const name = document.createElement("td");
-        var a = document.createElement('a');
-        var linkText = document.createTextNode(data.products[i].name);
-        a.appendChild(linkText);
-        a.title = data.products[i].name;
-        a.href = "/products/"+data.products[i].name;
-        name.appendChild(a);
-        row.appendChild(name);
+        var title = document.createElement("div");
+        title.setAttribute("class", "text");
+        title.innerHTML = `<a href='/products/` +
+                data.products[i].id + `'>` +
+                data.products[i].name + `</a>`;
 
-        const brand = document.createElement("td");
-        const brandText = document.createTextNode(data.products[i].brand);
-        brand.appendChild(brandText);
-        row.appendChild(brand);
+        card.appendChild(title);
 
-        const price = document.createElement("td");
-        const priceText = document.createTextNode(data.products[i].price + "руб.");
-        price.appendChild(priceText);
-        row.appendChild(price);
+        var divImage = document.createElement("div");
+        divImage.setAttribute("class", "image");
 
-        const rating = document.createElement("td");
-        const ratingText = document.createTextNode(data.products[i].rating);
-        rating.appendChild(ratingText);
-        row.appendChild(rating);
+        var img = document.createElement("img");
+        img.setAttribute("src", data.products[i].path_to_image);
 
-        tblBody.appendChild(row);
+        divImage.appendChild(img);
+        card.appendChild(divImage);
+
+        var description = document.createElement("div");
+        description.setAttribute("class", "text");
+        description.innerHTML = data.products[i].price + "₽";
+
+        card.appendChild(description);
+
+        var buyButton = document.createElement("button");
+        buyButton.setAttribute("class", "buy-button");
+        buyButton.setAttribute("id", "buy-button " + i.toString());
+        buyButton.setAttribute("value", "0");
+        buyButton.innerHTML=`<div class="text-inside-buy-button">
+                              Buy!
+                            </div>`;
+
+        card.appendChild(buyButton);
+
+
+        tbl.appendChild(card);
+
+        document.getElementById("buy-button " + i.toString()).addEventListener('click', function() {
+          var button = document.getElementById("buy-button " + i.toString());
+
+          if (button.getAttribute("value") == "0") {
+            var newProduct = new Product(
+              data.products[i].id,
+              data.products[i].name,
+              data.products[i].brand,
+              data.products[i].price);
+            addProductToList(newProduct);
+
+            var productsAmount = document.createElement("input");
+            productsAmount.setAttribute("id", "product_amount " + data.products[i].id.toString());
+            productsAmount.setAttribute("type", "number");
+            productsAmount.setAttribute("value", 1);
+            productsAmount.setAttribute("min", 1);
+            productsAmount.setAttribute("max", 10);
+            productsAmount.setAttribute("style", "font-size: 18px;");
+
+            var card = document.getElementById("card " + i.toString());
+            card.appendChild(productsAmount);
+
+            button.style.backgroundColor = "red";
+            button.innerHTML = `<div class="text-inside-buy-button">
+                                                  Remove!
+                                                </div>`;
+            button.setAttribute("value", "1");
+            return;
+          }
+
+          removeProductFromList(data.products[i].id);
+          document.getElementById("product_amount " + data.products[i].id.toString()).remove();
+          button.setAttribute("value", "0");
+          button.style.backgroundColor = "#3bf12a";
+          button.innerHTML = `<div class="text-inside-buy-button">
+                                Buy!
+                              </div>`;
+        });
       }
 
-      tbl.appendChild(tblBody);
-      document.body.appendChild(tbl);
-      tbl.setAttribute("border", "2");
+      document.getElementById("make-order").onclick = function() {
+        var chosenProductsJSON = sessionStorage.getItem("chosen_products");
+        if (chosenProductsJSON == null) {
+          document.getElementById("messageBox").innerHTML = "You need to choose at least one product to make order";
+          return;
+        }
+
+        var chosenProducts = JSON.parse(chosenProductsJSON);
+        for (var i = 0; i < chosenProducts.length; i++) {
+          chosenProducts[i].amount = document.getElementById(
+            "product_amount " + chosenProducts[i].id.toString()).value;
+        }
+
+        var chosenProductsArray = JSON.stringify(chosenProducts);
+        sessionStorage.setItem("chosen_products", chosenProductsArray);
+        makeOrder();
+      }
     }
   )
