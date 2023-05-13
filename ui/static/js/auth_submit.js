@@ -6,17 +6,21 @@ export function auth_submit() {
         e.preventDefault()
         
         const formData = new FormData(inputForm)
-        console.log(formData.get("email"))
+
+        setCookie("email", "")
+        var emailField = formData.get("email")
+        console.log(emailField)
 
         fetch("/auth", {
             method: "POST",
-            body: JSON.stringify({email: formData.get("email"), password: formData.get("password")}),
+            body: JSON.stringify({email: emailField, password: formData.get("password")}),
         }).then(
             response => response.json()
         ).then(
             (data) => {
                 document.getElementById("serverMessageBox").innerHTML=data.description;
                 if (data.status != 403) {
+                    setCookie("email", emailField)
                     setCookie("username", data.userName);
                     setCookie("token", data.token);
                     console.log(document.cookie);

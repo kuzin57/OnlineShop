@@ -31,6 +31,7 @@ func main() {
 	pageHandlers = append(pageHandlers, handlers.AddRegistrationPageHandler(mux, pagesConfig, postgres))
 	pageHandlers = append(pageHandlers, handlers.AddCatalogueHandler(mux, pagesConfig, repo))
 	pageHandlers = append(pageHandlers, handlers.AddRecoveryPageHandler(mux, pagesConfig, repo, postgres))
+	pageHandlers = append(pageHandlers, handlers.AddSettingsPageHandler(mux, pagesConfig, repo))
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

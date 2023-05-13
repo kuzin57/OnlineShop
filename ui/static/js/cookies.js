@@ -7,7 +7,7 @@ export function setCookie(name, value, options = {}) {
     if (options.expires instanceof Date) {
       options.expires = options.expires.toUTCString();
     }
-  
+
     let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
   
     for (let optionKey in options) {

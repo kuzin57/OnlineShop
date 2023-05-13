@@ -112,3 +112,50 @@ func (r *Repository) UpdatePassword(email string, newPassword string) error {
 
 	return nil
 }
+
+func (r *Repository) GetUserByEmail(email string) (*User, error) {
+	query := fmt.Sprintf(
+		`SELECT firstname, surname, email, phone_number, birthdate FROM %s WHERE email = '%s';`,
+		usersTable, email)
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	user := &User{}
+
+	for rows.Next() {
+		rows.Scan(
+			&user.Firstname,
+			&user.Surname,
+			&user.Email,
+			&user.PhoneNumber,
+			&user.Birthday,
+		)
+	}
+
+	return user, nil
+}
+
+func (r *Repository) UpdateUser(user *User, oldEmail string) error {
+	query := fmt.Sprintf(
+		`UPDATE %s 
+		SET firstname = '%s',
+			surname = '%s',
+			phone_number = '%s',
+			email = '%s',
+			birthdate = '%s'
+		WHERE email = '%s';
+		`, usersTable, user.Firstname, user.Surname,
+		user.PhoneNumber, user.Email,
+		user.Birthday, oldEmail,
+	)
+
+	_, err := r.db.Query(query)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
