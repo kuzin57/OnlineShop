@@ -24,16 +24,19 @@ type Product struct {
 	Available    bool    `json:"available"`
 	Rating       float64 `json:"rating"`
 	RatingAmount uint64  `json:"rating_amount"`
+	PathToImage  string  `json:"path_to_image"`
 }
 
-func NewProduct(category string, name string, brand string,
-	price uint32, available bool, rating float64) Product {
+func NewProduct(id uint32, category string, name string, brand string,
+	price uint32, available bool, rating float64, pathToImage string) Product {
 	return Product{
-		Category:  category,
-		Name:      name,
-		Brand:     brand,
-		Price:     price,
-		Available: available,
-		Rating:    rating,
+		Id:          id,
+		Category:    category,
+		Name:        name,
+		Brand:       brand,
+		Price:       price,
+		Available:   available,
+		Rating:      rating,
+		PathToImage: pathToImage,
 	}
 }

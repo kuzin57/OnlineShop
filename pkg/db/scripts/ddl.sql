@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS bshop.product (
   available BOOLEAN NOT NULL,
   rating NUMERIC NOT NULL,
   rating_amount BIGINT NOT NULL,
+  image_path VARCHAR(600),
   CHECK (rating <= 10)
 );
 
@@ -71,5 +72,6 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
   available BOOLEAN NOT NULL,
   rating NUMERIC NOT NULL,
   rating_amount BIGINT NOT NULL,
+  image_path VARCHAR(600),
   change_time TIMESTAMP
 );

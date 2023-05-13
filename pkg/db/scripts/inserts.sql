@@ -11,17 +11,17 @@ VALUES
 ('James', 'Wilson', '1528384959', 'jameswilson@gmail.com', '1980-04-12', 'bNmJkLoPqRsTfGh'),
 ('Jessica', 'Taylor', '9581637854', 'jessicataylor@gmail.com', '1993-02-28', 'yHjKlMnBvCxZqW');
 
-INSERT INTO bshop.product (category, name, brand, price, available, rating, rating_amount) VALUES
-('Молочные продукты', 'Молоко', 'Простоквашино', 92, true, 8.7, 1),
-('Молочные продукты', 'Творог', 'Домик в деревне', 55, true, 8.0, 1),
-('Бакалея', 'Макароны', 'Barilla', 120, true, 8.5, 1),
-('Бакалея', 'Рис', 'Мистраль', 166, true, 8.3, 1),
-('Фрукты и овощи', 'Яблоки', 'Голден', 170, true, 8.6, 1),
-('Фрукты и овощи', 'Огурцы', 'Fresh', 190, true, 7.3, 1),
-('Кондитерские изделия', 'Шоколад', 'Alpen Gold', 96, true, 9.5, 1),
-('Кондитерские изделия', 'Печенье', 'McVities', 93, false, 8.4, 1),
-('Напитки', 'Чай', 'Lipton', 70, true, 8.8, 1),
-('Напитки', 'Кофе', 'Nescafe', 650, true, 7.5, 1);
+INSERT INTO bshop.product (category, name, brand, price, available, rating, rating_amount, image_path) VALUES
+('Молочные продукты', 'Молоко', 'Простоквашино', 92, true, 8.7, 1, '../static/img/products/молоко_простоквашино.jpg'),
+('Молочные продукты', 'Творог', 'Домик в деревне', 55, true, 8.0, 1, '../static/img/products/творог_домик_в_деревне.jpg'),
+('Бакалея', 'Макароны', 'Barilla', 120, true, 8.5, 1, '../static/img/products/макароны_barilla.jpg'),
+('Бакалея', 'Рис', 'Мистраль', 166, true, 8.3, 1, '../static/img/products/рис_мистраль.png'),
+('Фрукты и овощи', 'Яблоки', 'Голден', 170, true, 8.6, 1, '../static/img/products/яблоки_голден.jpg'),
+('Фрукты и овощи', 'Огурцы', 'Fresh', 190, true, 7.3, 1, '../static/img/products/огурцы_fresh.jpeg'),
+('Кондитерские изделия', 'Шоколад', 'Alpen Gold', 96, true, 9.5, 1, '../static/img/products/шоколад_alpen_gold.jpg'),
+('Кондитерские изделия', 'Печенье', 'McVities', 93, false, 8.4, 1, '../static/img/products/печенье_mcvities.jpeg'),
+('Напитки', 'Чай', 'Lipton', 70, true, 8.8, 1, '../static/img/products/чай_липтон.jpg'),
+('Напитки', 'Кофе', 'Nescafe', 650, true, 7.5, 1, '../static/img/products/кофе_nescafe.jpeg');
 
 INSERT INTO bshop.review (user_id, comment, product_id, date, mark) 
 VALUES 
