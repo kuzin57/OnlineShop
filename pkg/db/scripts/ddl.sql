@@ -73,5 +73,3 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
   rating_amount BIGINT NOT NULL,
   change_time TIMESTAMP
 );
-
-SELECT * FROM bshop.user;
