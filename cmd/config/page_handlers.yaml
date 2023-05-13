@@ -27,3 +27,8 @@ password_recovery:
   path: /recovery
   templates:
     - /home/kuzin57/OnlineShop/ui/html/recovery.html
+
+settings:
+  path: /settings
+  templates:
+    - /home/kuzin57/OnlineShop/ui/html/settings.html

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/kuzin57/OnlineShop/cmd/db"
+	"github.com/kuzin57/OnlineShop/pkg/db"
 )
 
 type Response struct {

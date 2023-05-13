@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/kuzin57/OnlineShop/cmd/auth"
+	"github.com/kuzin57/OnlineShop/pkg/auth"
 )
 
 type homePageHandler struct {

@@ -1,6 +1,6 @@
 package services
 
-import "github.com/kuzin57/OnlineShop/cmd/db"
+import "github.com/kuzin57/OnlineShop/pkg/db"
 
 type Authorization interface {
 	CreateUser(user *db.User) (uint32, error)

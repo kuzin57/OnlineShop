@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	ddlScripts     = "./cmd/db/scripts/ddl.sql"
-	insertsScripts = "./cmd/db/scripts/inserts.sql"
-	viewsScripts   = "./cmd/db/scripts/views.sql"
+	ddlScripts     = "./pkg/db/scripts/ddl.sql"
+	insertsScripts = "./pkg/db/scripts/inserts.sql"
+	viewsScripts   = "./pkg/db/scripts/views.sql"
 	dbConfigFile   = "./cmd/config/databases.yaml"
 )
 
