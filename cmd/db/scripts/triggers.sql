@@ -60,7 +60,7 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER product_rating_update
 AFTER INSERT ON bshop.review
-FOR EACH ROW EXECUTE FUNCTION bshop.write_user_history_on_insert_or_update();
+FOR EACH ROW EXECUTE FUNCTION bshop.update_product_rating_and_amount_rating();
 
 -------------------------------------------------------------------------------
 
