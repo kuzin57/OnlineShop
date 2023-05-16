@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/tanimutomo/sqlfile"
 )
@@ -160,4 +162,32 @@ func (r *Repository) UpdateUser(user *User, oldEmail string) error {
 	}
 
 	return nil
+}
+
+func (r *Repository) AddOrder(order *Order) (int, error) {
+	user, err := r.GetUserByEmail(strings.ReplaceAll(order.Email, "%40", "@"))
+	if err != nil {
+		return -1, err
+	}
+
+	query := fmt.Sprintf(
+		`INSERT INTO %s(client_id, purchase_price,
+						date, delivery_date, city,
+						street, house_number, flat_number) VALUES (
+							'%s', %d, NOW(), '%s', '%s', '%s', %d, %d
+						) RETURNING purchase_id;`, ordersTable, strconv.Itoa(int(user.Id)),
+		order.TotalSum, order.DeliveryDate, order.City,
+		order.Street, order.HouseNumber, order.FlatNumber)
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return -1, err
+	}
+
+	var orderID int
+	for rows.Next() {
+		rows.Scan(&orderID)
+	}
+
+	return orderID, nil
 }

@@ -40,7 +40,12 @@ CREATE TABLE IF NOT EXISTS bshop.purchase (
   client_id INTEGER NOT NULL,
   purchase_price INTEGER NOT NULL,
   date DATE NOT NULL,
-  FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
+  delivery_date DATE NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  street VARCHAR(300) NOT NULL,
+  house_number INTEGER NOT NULL,
+  flat_number INTEGER NOT NULL
+  -- FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS bshop.purchase_product (

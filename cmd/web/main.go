@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/kuzin57/OnlineShop/pkg/auth"
 	"github.com/kuzin57/OnlineShop/pkg/db"
 	"github.com/kuzin57/OnlineShop/pkg/handlers"
 )
@@ -25,13 +26,17 @@ func main() {
 	}
 
 	postgres := db.NewAuthPostgresService(repo)
+	messageService := auth.InitServiceEmail()
 
 	pageHandlers = append(pageHandlers, handlers.AddHomePageHandler(mux, pagesConfig))
 	pageHandlers = append(pageHandlers, handlers.AddAuthPageHandler(mux, pagesConfig, postgres))
 	pageHandlers = append(pageHandlers, handlers.AddRegistrationPageHandler(mux, pagesConfig, postgres))
 	pageHandlers = append(pageHandlers, handlers.AddCatalogueHandler(mux, pagesConfig, repo))
-	pageHandlers = append(pageHandlers, handlers.AddRecoveryPageHandler(mux, pagesConfig, repo, postgres))
+	pageHandlers = append(pageHandlers, handlers.AddRecoveryPageHandler(
+		mux, pagesConfig,
+		repo, postgres, messageService))
 	pageHandlers = append(pageHandlers, handlers.AddSettingsPageHandler(mux, pagesConfig, repo))
+	pageHandlers = append(pageHandlers, handlers.AddOrderPageHandler(mux, pagesConfig, repo, messageService))
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

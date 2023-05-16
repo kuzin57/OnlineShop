@@ -3,6 +3,7 @@ package db
 const (
 	usersTable    = "bshop.user"
 	productsTable = "bshop.product"
+	ordersTable   = "bshop.purchase"
 )
 
 type User struct {
@@ -25,6 +26,19 @@ type Product struct {
 	Rating       float64 `json:"rating"`
 	RatingAmount uint64  `json:"rating_amount"`
 	PathToImage  string  `json:"path_to_image"`
+	Amount       string  `json:"amount"`
+}
+
+type Order struct {
+	Id           uint32    `json:"id"`
+	DeliveryDate string    `json:"delivery_date"`
+	TotalSum     int       `json:"total_sum"`
+	City         string    `json:"city"`
+	HouseNumber  uint16    `json:"house_number"`
+	FlatNumber   uint16    `json:"flat_number"`
+	Street       string    `json:"street"`
+	Email        string    `json:"email"`
+	Products     []Product `json:"chosen_products"`
 }
 
 func NewProduct(id uint32, category string, name string, brand string,

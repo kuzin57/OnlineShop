@@ -32,3 +32,8 @@ settings:
   path: /settings
   templates:
     - /home/kuzin57/OnlineShop/ui/html/settings.html
+
+order:
+  path: /order
+  templates:
+    - /home/kuzin57/OnlineShop/ui/html/order.html
