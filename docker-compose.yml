@@ -10,8 +10,6 @@ services:
       - 7000:7000
     depends_on:
       - db
-    environment:
-      - DB_PASSWORD=postgres
 
   db:
     restart: always
@@ -20,6 +18,8 @@ services:
       - ./.database/postgres/data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
     extra_hosts:
       - host.docker.internal:host-gateway
     ports:

@@ -28,6 +28,8 @@ func ConnectToDB() (*Repository, error) {
 	}
 
 	repos := NewRepository(database)
+	repos.Clean()
+
 	if err = repos.executeQueriesFromFile(ddlScripts); err != nil {
 		return nil, err
 	}

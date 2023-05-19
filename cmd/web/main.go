@@ -23,10 +23,8 @@ func main() {
 
 	repo, err := db.ConnectToDB()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-
-	repo.Clean()
 
 	postgres := db.NewAuthPostgresService(repo)
 	messageService := auth.InitServiceEmail()
