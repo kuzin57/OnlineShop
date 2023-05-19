@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили и иконку сайта -->
+        <link rel='stylesheet' href='../static/css/main.css'>
+        <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
+        <!-- Подключаем новый шрифт для сайта от Google Fonts -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>bShop</a></h1>
+        </header>
+
+        <p id="login-username" style="margin-left: 90%;"></p>
+
+        <main>
+        <h2>Your orders</h2>
+
+        <section class="product-list">
+            <table style="width:100%; margin-left: 0%;">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Delivery Date</th>
+                        <th>Cost</th>
+                        <th>Address</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
+
+                <tbody id="table-body">
+                </tbody>
+
+            </table>
+        </section>
+
+        </main>
+        <script type="module" src="../static/js/my_orders.js"></script>
+    </body>
+</html>
