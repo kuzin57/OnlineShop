@@ -13,6 +13,7 @@ type Response struct {
 	Token       string       `json:"token"`
 	UserName    string       `json:"userName"`
 	Products    []db.Product `json:"products"`
+	Orders      []db.Order   `json:"orders"`
 }
 
 func sendResponse(w http.ResponseWriter, response Response) {

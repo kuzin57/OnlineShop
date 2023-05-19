@@ -124,8 +124,8 @@ fetch('/catalogue', {
 
         var chosenProducts = JSON.parse(chosenProductsJSON);
         for (var i = 0; i < chosenProducts.length; i++) {
-          chosenProducts[i].amount = document.getElementById(
-            "product_amount " + chosenProducts[i].id.toString()).value;
+          chosenProducts[i].amount = parseInt(document.getElementById(
+            "product_amount " + chosenProducts[i].id.toString()).value);
         }
 
         var chosenProductsArray = JSON.stringify(chosenProducts);

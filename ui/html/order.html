@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили и иконку сайта -->
+        <link rel='stylesheet' href='../static/css/main.css'>
+        <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
+        <!-- Подключаем новый шрифт для сайта от Google Fonts -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>bShop</a></h1>
+        </header>
+
+        <main>
+        <h2>New order</h2>
+        
+        <section class="product-list">
+            <h2 class="align-center">You ordered:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>Brand</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody id="table-body">
+                
+                </tbody>
+
+            </table>
+        </section>
+
+        <p id="serverMessageBox"></p>
+
+        <form id="order_form">
+            <label for="delivery_day">Delivery day:</label><br>
+            <input type="text" id="delivery_day" name="delivery_day", placeholder="01-01-1900"><br>
+            <label for="city">City</label><br>
+            <input type="text" id="city" name="city" placeholder="Moscow"><br>
+            <label for="street">Street</label><br>
+            <input type="text" id="street" name="street" placeholder="">
+            <label for="house_number">House number</label>
+            <input type="text" id="house_number" name="house_number"><br>
+            <label for="flat_number">Flat number</label>
+            <input type="text" id="flat_number" name="flat_number">
+        </form>
+
+        <button style="margin-left: 41%; margin-top: 3%;" id="create-order">Создать заказ!</button>
+        </main>
+        <script type="module" src="../static/js/order.js"></script>
+    </body>
+</html>

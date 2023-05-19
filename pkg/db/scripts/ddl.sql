@@ -40,16 +40,21 @@ CREATE TABLE IF NOT EXISTS bshop.purchase (
   client_id INTEGER NOT NULL,
   purchase_price INTEGER NOT NULL,
   date DATE NOT NULL,
-  FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
+  delivery_date DATE NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  street VARCHAR(300) NOT NULL,
+  house_number INTEGER NOT NULL,
+  flat_number INTEGER NOT NULL
+  -- FOREIGN KEY (client_id) REFERENCES bshop.user(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS bshop.purchase_product (
   pp_id SERIAL UNIQUE,
   purchase_id INTEGER NOT NULL,
   product_id INTEGER NOT NULL,
-  amount TEXT NOT NULL,
-  FOREIGN KEY (purchase_id) REFERENCES bshop.purchase(purchase_id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
+  amount INTEGER NOT NULL
+  -- FOREIGN KEY (purchase_id) REFERENCES bshop.purchase(purchase_id) ON DELETE CASCADE,
+  -- FOREIGN KEY (product_id) REFERENCES bshop.product(product_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS bshop.user_history (
@@ -75,3 +80,12 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
   image_path VARCHAR(600),
   change_time TIMESTAMP
 );
+
+-- SELECT bshop.product.product_id, name, brand, price, amount
+-- FROM bshop.purchase_product
+-- JOIN bshop.product
+-- ON bshop.product.product_id = bshop.purchase_product.product_id
+-- WHERE purchase_id = 1;
+
+SELECT * FROM bshop.purchase;
+SELECT * FROM bshop.purchase_product;

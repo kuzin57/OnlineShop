@@ -15,6 +15,7 @@ const (
 	emailHeader       = "email"
 	codeHeader        = "code"
 	newPasswordHeader = "New-Password"
+	getOrdersHeader   = "Get-Orders"
 	maxCode           = 1000000
 )
 
@@ -33,11 +34,12 @@ func AddRecoveryPageHandler(
 	conf PagesConfig,
 	repo *db.Repository,
 	postgres *db.AuthPostgres,
+	messageService *auth.ServiceEmail,
 ) PageHandler {
 	handler := &recoveryPageHandler{
 		path:            conf.PasswordRecovery.Path,
 		htmlSources:     conf.PasswordRecovery.Templates,
-		recoveryService: auth.InitServiceEmail(),
+		recoveryService: messageService,
 		repo:            repo,
 		authService:     auth.NewAuthService(postgres),
 	}
