@@ -1,39 +1,44 @@
 home:
   path: /
   templates: 
-    - /home/kuzin57/OnlineShop/ui/html/home.html
-    - /home/kuzin57/OnlineShop/ui/html/base.html
-    - /home/kuzin57/OnlineShop/ui/html/footer.html
+    - ./ui/html/home.html
+    - ./ui/html/base.html
+    - ./ui/html/footer.html
 
 catalogue:
   path: /catalogue
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/catalogue.html
-    - /home/kuzin57/OnlineShop/ui/html/footer.html
+    - ./ui/html/catalogue.html
+    - ./ui/html/footer.html
 
 auth:
   path: /auth
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/auth.html
-    - /home/kuzin57/OnlineShop/ui/html/footer.html
+    - ./ui/html/auth.html
+    - ./ui/html/footer.html
   auth_type: postgres
 
 registration:
   path: /registration
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/register.html
+    - ./ui/html/register.html
   
 password_recovery:
   path: /recovery
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/recovery.html
+    - ./ui/html/recovery.html
 
 settings:
   path: /settings
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/settings.html
+    - ./ui/html/settings.html
 
 order:
   path: /order
   templates:
-    - /home/kuzin57/OnlineShop/ui/html/order.html
+    - ./ui/html/order.html
+
+my_orders:
+  path: /my_orders
+  templates:
+    - ./ui/html/my_orders.html

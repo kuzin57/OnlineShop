@@ -80,7 +80,7 @@ func (s *ServiceEmail) SendOrderNotification(to string, order *db.Order) error {
 	for _, product := range order.Products {
 		message = append(message, []byte(
 			fmt.Sprintf(
-				"-%s %s %s × %d руб. \n",
+				"-%s %s %d × %d руб. \n",
 				product.Name, product.Brand, product.Amount, product.Price))...)
 	}
 

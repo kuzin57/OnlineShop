@@ -5,7 +5,7 @@ export function setDropdown() {
       <div class="dropdown">
         <button>` + getCookie("username") + `</button>
         <div class="dropdown-options">
-          <button>Orders</button>
+          <button id="my-orders">Orders</button>
           <button id="settings-button">Settings</button>
           <button id="logout-button">Logout</button>
         </div>
@@ -21,5 +21,10 @@ export function setDropdown() {
     const settings = document.getElementById("settings-button");
     settings.addEventListener("click", function() {
     window.location.replace("/settings");
+    });
+
+    const myOrders = document.getElementById("my-orders");
+    myOrders.addEventListener("click", function() {
+    window.location.replace("/my_orders");
     });
 }

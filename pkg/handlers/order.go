@@ -65,6 +65,13 @@ func (h *orderPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		if email == nil {
+			response.Status = http.StatusBadRequest
+			response.Description = "No email header provided"
+			sendResponse(w, response)
+			return
+		}
+
 		orderID, err := h.repo.AddOrder(order)
 		if err != nil {
 			response.Status = http.StatusInternalServerError
@@ -74,9 +81,9 @@ func (h *orderPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 
 		order.Id = uint32(orderID)
 
-		if email == nil {
-			response.Status = http.StatusBadRequest
-			response.Description = "No email header provided"
+		if err = h.repo.AddProductsFromOrder(order); err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Description = err.Error()
 			goto send_response
 		}
 

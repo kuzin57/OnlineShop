@@ -15,6 +15,7 @@ const (
 	emailHeader       = "email"
 	codeHeader        = "code"
 	newPasswordHeader = "New-Password"
+	getOrdersHeader   = "Get-Orders"
 	maxCode           = 1000000
 )
 
