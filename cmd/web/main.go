@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	"os/exec"
 
 	"github.com/kuzin57/OnlineShop/pkg/auth"
 	"github.com/kuzin57/OnlineShop/pkg/db"
@@ -17,9 +16,6 @@ const (
 )
 
 func main() {
-	cmd := exec.Command(cleanDBFile)
-	cmd.Run()
-
 	mux := http.NewServeMux()
 	pagesConfig := handlers.GetHandlersParameters(pathToConf)
 
@@ -29,6 +25,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	repo.Clean()
 
 	postgres := db.NewAuthPostgresService(repo)
 	messageService := auth.InitServiceEmail()
