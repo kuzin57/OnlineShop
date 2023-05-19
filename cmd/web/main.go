@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os/exec"
 
 	"github.com/kuzin57/OnlineShop/pkg/auth"
 	"github.com/kuzin57/OnlineShop/pkg/db"
@@ -12,9 +13,13 @@ import (
 const (
 	pathToConf  = "./cmd/config/page_handlers.yaml"
 	staticFiles = "./ui/static"
+	cleanDBFile = "./clean_db"
 )
 
 func main() {
+	cmd := exec.Command(cleanDBFile)
+	cmd.Run()
+
 	mux := http.NewServeMux()
 	pagesConfig := handlers.GetHandlersParameters(pathToConf)
 
@@ -39,6 +44,7 @@ func main() {
 	pageHandlers = append(pageHandlers, handlers.AddSettingsPageHandler(mux, pagesConfig, repo))
 	pageHandlers = append(pageHandlers, handlers.AddOrderPageHandler(mux, pagesConfig, repo, messageService))
 	pageHandlers = append(pageHandlers, handlers.AddMyOrdersPageHandler(mux, pagesConfig, repo))
+	pageHandlers = append(pageHandlers, handlers.AddProductPageHandler(mux, pagesConfig, repo))
 
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

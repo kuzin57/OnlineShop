@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/kuzin57/OnlineShop/pkg/auth"
@@ -70,8 +69,6 @@ func (h *myOrdersPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 		response.Orders = make([]db.Order, len(orders))
 		for i, order := range orders {
 			tmp := *order
-
-			fmt.Println("tmp", tmp)
 			response.Orders[i] = tmp
 		}
 
