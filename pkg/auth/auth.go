@@ -12,7 +12,7 @@ import (
 const (
 	salt     = "vndfkjnkvj938958*&^*&*"
 	signKey  = "w87r8fyschcjdh*&^*&^*&hbj"
-	tokenTTL = time.Second * 30
+	tokenTTL = time.Minute * 30
 )
 
 type AuthService struct {
