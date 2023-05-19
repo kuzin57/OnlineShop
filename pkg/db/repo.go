@@ -9,6 +9,11 @@ import (
 	"github.com/tanimutomo/sqlfile"
 )
 
+const (
+	dropsFile   = "./pkg/db/scripts/drops.sql"
+	deletesFile = "./pkg/db/scripts/deletes.sql"
+)
+
 type Repository struct {
 	db *sql.DB
 }
@@ -284,4 +289,9 @@ func (r *Repository) GetUserOrders(email string) ([]*Order, error) {
 		copy(order.Products, products)
 	}
 	return orders, nil
+}
+
+func (r *Repository) Clean() {
+	r.executeQueriesFromFile(deletesFile)
+	r.executeQueriesFromFile(dropsFile)
 }

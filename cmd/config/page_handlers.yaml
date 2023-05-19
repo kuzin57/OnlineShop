@@ -42,3 +42,8 @@ my_orders:
   path: /my_orders
   templates:
     - ./ui/html/my_orders.html
+
+product:
+  path: /products/
+  templates:
+    - ./ui/html/product.html
