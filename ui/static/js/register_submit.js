@@ -6,11 +6,16 @@ inputForm.addEventListener("submit", async (e)=> {
 
     if (formData.get("password") != formData.get("password_again")) {
         document.getElementById("serverMessageBox").innerHTML="Passwords don't match";
-        console.log("i am in if");
         e.stopPropagation();
         return false;
     }
-    console.log("i am in else");
+
+    if (formData.get("password") == "") {
+        document.getElementById("serverMessageBox").innerHTML="Password can't be empty!";
+        e.stopPropagation();
+        return false;
+    }
+
     fetch("/registration", {
         method: "POST",
         body: JSON.stringify({
