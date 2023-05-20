@@ -45,7 +45,7 @@ func main() {
 	fileServer := http.FileServer(http.Dir(staticFiles))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	log.Println("connecting to http://127.0.0.1:7000")
-	err = http.ListenAndServe(":7000", mux)
+	log.Println("connecting to http://127.0.0.1:10000")
+	err = http.ListenAndServe(":10000", mux)
 	log.Fatal(err)
 }

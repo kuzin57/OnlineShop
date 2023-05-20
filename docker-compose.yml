@@ -7,7 +7,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     ports:
-      - 7000:7000
+      - 10000:10000
     depends_on:
       - db
 
