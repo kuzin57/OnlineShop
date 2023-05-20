@@ -1,5 +1,4 @@
 build:
-	sudo rm -r .database
 	docker-compose build bshop
 
 run:
