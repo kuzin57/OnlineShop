@@ -15,7 +15,7 @@ fetch('/', {
     if (authorized == "true") {
       setDropdown();
        
-      if (document.URL == "http://localhost:7000/") {
+      if (document.URL == "http://localhost:10000/") {
         document.getElementById("serverMessageBox").innerHTML = "Hello, " + getCookie("username");  
       }
     } else {
