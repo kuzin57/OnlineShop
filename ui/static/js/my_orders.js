@@ -25,7 +25,7 @@ fetch('/my_orders', {
     } else {
       document.getElementById("login-username").innerHTML=`
       <a href="/auth">  
-       <button>Login</button>  
+       <button style="margin-top: 0%;">Login</button>  
       </a>
       `;
     }
@@ -39,22 +39,29 @@ fetch('/my_orders', {
   
         var orderID = document.createElement("th");
         orderID.innerHTML = data.orders[i].id;
+        orderID.style = "width: 5%;";
   
         var date = document.createElement("th");
         date.innerHTML = data.orders[i].date;
+        date.style = "width: 10%;";
   
         var deliveryDate = document.createElement("th");
         deliveryDate.innerHTML = data.orders[i].delivery_date;
+        deliveryDate.style = "width: 10%;";
   
         var address = document.createElement("th");
         address.innerHTML = data.orders[i].city + ", " + data.orders[i].street + ", " + 
                               data.orders[i].house_number + ", ap. " +
                               data.orders[i].flat_number;
+        address.style = "width: 30%;";
         
         var cost = document.createElement("th");
         cost.innerHTML = data.orders[i].total_sum;
+        cost.style = "width: 5%;";
   
         var products = document.createElement("th");
+        products.style = "width: 40%; text-align: left;"
+
         var listProducts = document.createElement("ul");
         for (var j = 0; j < data.orders[i].chosen_products.length; j++) {
             var point = document.createElement("li");
