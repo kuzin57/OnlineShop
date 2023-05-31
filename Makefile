@@ -1,9 +1,6 @@
 PATH_TO_FILE := "./.database"
 
 build:
-	if [ -d $(PATH_TO_FILE) ]; then \
-		sudo rm -r .database; \
-	fi
 	docker-compose build bshop
 
 run:
