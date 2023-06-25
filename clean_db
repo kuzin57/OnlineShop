@@ -1,0 +1,37 @@
+#!/usr/bin/python3
+import psycopg2
+
+deletes = [
+    'DELETE FROM bshop.user;',
+    'DELETE FROM bshop.product;',
+    'DELETE FROM bshop.review;',
+    'DELETE FROM bshop.purchase;',
+    'DELETE FROM bshop.purchase_product;',
+    'DELETE FROM bshop.user_history;',
+    'DELETE FROM bshop.product_history;'
+]
+
+drops = [
+    'DROP TABLE bshop.product_history;',
+    'DROP TABLE bshop.user_history;',
+    'DROP TABLE bshop.purchase_product;',
+    'DROP TABLE bshop.purchase;',
+    'DROP TABLE bshop.review;',
+    'DROP TABLE bshop.product;',
+    'DROP TABLE bshop.user;'
+]
+
+conn = psycopg2.connect(
+    database='postgres', user='postgres',
+    password='postgres', host='localhost',
+    port='5432'
+)
+
+cursor = conn.cursor()
+for delete in deletes:
+    cursor.execute(delete)
+    
+for drop in drops:
+    cursor.execute(drop)
+    
+conn.commit()

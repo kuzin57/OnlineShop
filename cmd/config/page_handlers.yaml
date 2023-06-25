@@ -1,0 +1,49 @@
+home:
+  path: /
+  templates: 
+    - ./ui/html/home.html
+    - ./ui/html/base.html
+    - ./ui/html/footer.html
+
+catalogue:
+  path: /catalogue
+  templates:
+    - ./ui/html/catalogue.html
+    - ./ui/html/footer.html
+
+auth:
+  path: /auth
+  templates:
+    - ./ui/html/auth.html
+    - ./ui/html/footer.html
+  auth_type: postgres
+
+registration:
+  path: /registration
+  templates:
+    - ./ui/html/register.html
+  
+password_recovery:
+  path: /recovery
+  templates:
+    - ./ui/html/recovery.html
+
+settings:
+  path: /settings
+  templates:
+    - ./ui/html/settings.html
+
+order:
+  path: /order
+  templates:
+    - ./ui/html/order.html
+
+my_orders:
+  path: /my_orders
+  templates:
+    - ./ui/html/my_orders.html
+
+product:
+  path: /products/
+  templates:
+    - ./ui/html/product.html

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили и иконку сайта -->
+        <link rel='stylesheet' href='../static/css/main.css'>
+        <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
+        <!-- Подключаем новый шрифт для сайта от Google Fonts -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>bShop</a></h1>
+        </header>
+
+        <main>
+        <h2>Restoring access</h2>
+        <div id="serverMessageBox" style="text-align: left"></div>
+
+
+        <form id="access_form">
+            <label for="email">Enter your email:</label><br>
+            <input type="text" id="email" name="email", placeholder="example@example.com"><br>
+            <input type="submit" value="Send code!" id="send_code">
+        </form>
+
+        <script type="module">
+            import {send_code_to_email} from '../static/js/recovery.js'
+          
+            document.getElementById("send_code").addEventListener('click', send_code_to_email)
+        </script>
+
+        </main>
+        <script type="module" src="../static/js/recovery.js"></script>
+    </body>
+</html>

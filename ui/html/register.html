@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <!-- Ссылка на CSS стили и иконку сайта -->
+        <link rel='stylesheet' href='../static/css/main.css'>
+        <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
+        <!-- Подключаем новый шрифт для сайта от Google Fonts -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+    </head>
+    <body>
+        <header>
+            <h1><a href='/'>bShop</a></h1>
+        </header>
+
+        <main>
+        <h2>Registration</h2>
+
+        <div id="serverMessageBox" style="text-align: left"></div>
+
+        <form id="register_form">
+            <label for="firstname">Firstname:</label><br>
+            <input type="text" id="firstname" name="firstname", placeholder="john"><br>
+            <label for="surname">Surname:</label><br>
+            <input type="text" id="surname" name="surname", placeholder="doe"><br>
+            <label for="birthday">Birthday:</label><br>
+            <input type="text" id="birthday" name="birthday", placeholder="01-01-1900"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" placeholder="example@example.com"><br>
+            <label for="phone number">Phone number:</label><br>
+            <input type="text" id="phone number" name="phone number" placeholder="999-999-999"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <label for="password_again">Password Again:</label><br>
+            <input type="password" id="password_again" name="password_again"><br>
+            <input type="submit" value="Submit">
+        </form>
+
+
+        </main>
+        <script src="../static/js/register_submit.js"></script>
+    </body>
+</html>
