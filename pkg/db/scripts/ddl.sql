@@ -89,3 +89,14 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
 
 SELECT * FROM bshop.purchase;
 SELECT * FROM bshop.purchase_product;
+
+CREATE TABLE IF NOT EXISTS bshop.product_char (
+  product_id SERIAL UNIQUE,
+  country VARCHAR(100),
+  net_weight NUMERIC NOT NULL,
+  kcal INTEGER NOT NULL,
+  proteins NUMERIC NOT NULL,
+  fats NUMERIC NOT NULL,
+  carbohydrates NUMERIC NOT NULL,
+  expire_date INTEGER NOT NULL
+)
