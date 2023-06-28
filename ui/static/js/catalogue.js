@@ -65,6 +65,8 @@ fetch('/catalogue', {
         var buyButton = document.createElement("button");
         buyButton.setAttribute("class", "buy-button");
         buyButton.setAttribute("id", "buy-button " + i.toString());
+
+        
         buyButton.setAttribute("value", "0");
         buyButton.innerHTML=`<div class="text-inside-buy-button">
                               Buy!

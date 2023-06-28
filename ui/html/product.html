@@ -7,15 +7,97 @@
         <link rel='shortcut icon' href='../static/img/bishop.ico' type='image/x-icon'>
         <!-- Подключаем новый шрифт для сайта от Google Fonts -->
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'>
+        <style>
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto;
+                gap: 20px;
+                background-color: #8b99a4;
+                padding: 10px;
+                margin-top: 5%;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+            
+            .grid-container > div {
+                background-color: rgba(255, 255, 255, 0.8);
+                border: 1px solid black;
+                text-align: center;
+                font-size: 30px;
+            }
+
+            .tab {
+                overflow: hidden;
+                border: 1px solid #5a5151;
+                background-color: #7da4a1;
+            }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: inherit;
+                /* float: left; */
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+            /* Style the tab content */
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #ccc;
+                border-top: none;
+            }
+        </style>
     </head>
     <body>
         <header>
             <h1><a href='/'>bShop</a></h1>
         </header>
 
-        <main>
-        
-        </main>
+        <a href="/catalogue" style="margin-left: 10%;">Back to catalogue</a>
+        <p id="login-username"></p>
+
+        <!-- <div id="product-details"></div> -->
+        <div class="grid-container">
+            <div id="img-div">
+
+            </div>
+
+            <div id="product-details">
+                <div class="tab">
+                    <button id="details_button" class="tablinks">Details</button>
+                    <button id="desc_button" class="tablinks">Description</button>
+                </div>
+
+                <div id="detailed_info" class="tabcontent">
+
+                </div>
+
+                <div id="description" class="tabcontent">
+
+                </div>
+            </div>
+
+
+          </div>
+
         <script type="module" src="../static/js/product_page.js"></script>
     </body>
+    <footer>
+
+    </footer>
 </html>
