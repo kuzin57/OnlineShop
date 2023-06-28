@@ -50,6 +50,68 @@ func (r *Repository) MakeQueryRow(query string, args ...any) *sql.Row {
 	return r.db.QueryRow(query, args...)
 }
 
+func (r *Repository) GetProductDetailedInfo(id int) (*Product, error) {
+	query := fmt.Sprintf(`SELECT name, brand, category, rating,
+							price, image_path FROM %s
+								WHERE product_id=%d;`, productsTable, id)
+
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		name        string
+		brand       string
+		category    string
+		rating      float64
+		price       uint32
+		pathToImage string
+	)
+
+	product := &Product{}
+	for rows.Next() {
+		rows.Scan(
+			&name, &brand, &category, &rating, &price, &pathToImage,
+		)
+		product.Name = name
+		product.PathToImage = pathToImage
+		product.Price = price
+		product.Category = category
+		product.Brand = brand
+		product.Rating = rating
+	}
+
+	query = fmt.Sprintf(`SELECT fats, carbohydrates, proteins, kcal, country
+						FROM %s WHERE product_id=%d`, productsDetailedInfoTable, id)
+	rows, err = r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		fats          float32
+		proteins      float32
+		kcal          int
+		carbohydrates float32
+		country       string
+	)
+
+	for rows.Next() {
+		rows.Scan(
+			&fats, &carbohydrates, &proteins, &kcal, &country,
+		)
+
+		product.Fats = fats
+		product.Carbohydrates = carbohydrates
+		product.Kcal = kcal
+		product.Proteins = proteins
+		product.Country = country
+	}
+
+	return product, nil
+}
+
 func (r *Repository) GetProducts() ([]Product, error) {
 	query := fmt.Sprintf(`SELECT product_id, name, brand, category, rating,
 							price, available, image_path FROM %s;`, productsTable)

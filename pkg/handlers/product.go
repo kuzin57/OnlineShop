@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/kuzin57/OnlineShop/pkg/auth"
 	"github.com/kuzin57/OnlineShop/pkg/db"
@@ -43,5 +44,40 @@ func (h *productPageHandler) Handle(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Add("Authorized", "true")
 		executeTemplates(w, h.htmlSources)
+
+		response := Response{
+			Status: http.StatusOK,
+		}
+
+		sendResponse(w, response)
+
+	case http.MethodPost:
+		response := Response{}
+
+		if err := auth.CheckAuthorized(w, r); err != nil {
+			w.Header().Add("Authorized", "false")
+		} else {
+			w.Header().Add("Authorized", "true")
+		}
+
+		productID := r.Header.Get("Product-ID")
+		id, err := strconv.Atoi(productID)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Description = err.Error()
+			sendResponse(w, response)
+			return
+		}
+
+		product, err := h.repo.GetProductDetailedInfo(id)
+		if err != nil {
+			response.Status = http.StatusInternalServerError
+			response.Description = err.Error()
+			sendResponse(w, response)
+			return
+		}
+
+		response.Products = append(response.Products, *product)
+		sendResponse(w, response)
 	}
 }

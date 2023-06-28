@@ -1,11 +1,12 @@
 package db
 
 const (
-	usersTable          = "bshop.user"
-	productsTable       = "bshop.product"
-	ordersTable         = "bshop.purchase"
-	ordersProductsTable = "bshop.purchase_product"
-	onlyDateLength      = 10
+	usersTable                = "bshop.user"
+	productsTable             = "bshop.product"
+	productsDetailedInfoTable = "bshop.product_char"
+	ordersTable               = "bshop.purchase"
+	ordersProductsTable       = "bshop.purchase_product"
+	onlyDateLength            = 10
 )
 
 type User struct {
@@ -19,16 +20,24 @@ type User struct {
 }
 
 type Product struct {
-	Id           uint32  `json:"id"`
-	Category     string  `json:"category"`
-	Name         string  `json:"name"`
-	Brand        string  `json:"brand"`
-	Price        uint32  `json:"price"`
-	Available    bool    `json:"available"`
-	Rating       float64 `json:"rating"`
-	RatingAmount uint64  `json:"rating_amount"`
-	PathToImage  string  `json:"path_to_image"`
-	Amount       uint32  `json:"amount"`
+	Id            uint32  `json:"id"`
+	Category      string  `json:"category"`
+	Name          string  `json:"name"`
+	Brand         string  `json:"brand"`
+	Price         uint32  `json:"price"`
+	Available     bool    `json:"available"`
+	Rating        float64 `json:"rating"`
+	RatingAmount  uint64  `json:"rating_amount"`
+	PathToImage   string  `json:"path_to_image"`
+	Amount        uint32  `json:"amount"`
+	Kcal          int     `json:"kcal"`
+	Proteins      float32 `json:"proteins"`
+	Fats          float32 `json:"fats"`
+	Carbohydrates float32 `json:"carbohydrates"`
+	Weight        float32 `json:"weight"`
+	ExpireDate    string  `json:"expire_date"`
+	Country       string  `json:"country"`
+	Description   string  `json:"description"`
 }
 
 type Order struct {
