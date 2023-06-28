@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS bshop.product_history (
 -- ON bshop.product.product_id = bshop.purchase_product.product_id
 -- WHERE purchase_id = 1;
 
-SELECT * FROM bshop.purchase;
-SELECT * FROM bshop.purchase_product;
+-- SELECT * FROM bshop.purchase;
+-- SELECT * FROM bshop.purchase_product;
 
 CREATE TABLE IF NOT EXISTS bshop.product_char (
   product_id SERIAL UNIQUE,
@@ -99,4 +99,4 @@ CREATE TABLE IF NOT EXISTS bshop.product_char (
   fats NUMERIC NOT NULL,
   carbohydrates NUMERIC NOT NULL,
   expire_date INTEGER NOT NULL
-)
+);
